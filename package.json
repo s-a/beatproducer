@@ -5,7 +5,7 @@
   "name": "BOOM",
   "description": "BOOM",
   "repository": "git@bitbucket.org:sa77/boom.git",
-  "version": "0.1.113",
+  "version": "0.1.115",
   "scripts": {
     "test": "mocha"
   },
