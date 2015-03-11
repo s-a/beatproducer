@@ -1,0 +1,3 @@
+[submodule "audio/sample-db"]
+	path = audio/sample-db
+	url = https://github.com/s-a/sample-db.git

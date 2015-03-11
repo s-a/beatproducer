@@ -1,0 +1,26 @@
+{
+  "name": "boom",
+  "version": "0.1.113",
+  "authors": [
+    "s-a <stephan.ahlf@googlemail.com>"
+  ],
+  "description": "nosaer",
+  "license": "ALL RIGHTS RESERVED",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ciseaux": "~0.1.7",
+    "core-menu": "Polymer/core-menu#~0.5.5",
+    "core-scaffold": "Polymer/core-scaffold#~0.5.5",
+    "core-toolbar": "Polymer/core-toolbar#~0.5.5",
+    "jquery-ui": "~1.11.3",
+    "react": "~0.12.2",
+    "link.js": ""
+  }
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta author="Stephan Ahlf">
+  <link rel="icon" sizes="192x192" href="/icon.png">
+  <link rel="import" href="bower_components/core-menu/core-menu.html">
+  <link rel="import" href="bower_components/core-item/core-item.html">
+  <link rel="import" href="bower_components/core-icons/av-icons.html">
+  <link rel="import" href="bower_components/core-icon-button/core-icon-button.html">
+  <link rel="import" href="bower_components/core-scaffold/core-scaffold.html">
+  <!-- STYLE START -->
+  <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+  <!-- STYLE END -->
+</head>
+  <body>
+    <core-scaffold id="gui" >
+
+      <core-header-panel navigation flex responsiveWidth="1000">
+        <core-toolbar id="navheader">
+          <div class="device-name">
+            <span>BOOM</span> <small>v<!-- VERSION START -->0.0.0d<!-- VERSION END --></small>
+          </div>
+        </core-toolbar>
+        <core-menu>
+          <core-item label="Help" onclick="window.open('')"></core-item>
+        </core-menu>
+      </core-header-panel>
+      <div tool>
+        tools
+      </div>
+      <div id="pattern-editor"></div>
+      <div id="content" class="boom-sound-player"></div>
+    </core-scaffold>
+    <div id="gui-loading-progress">
+      <img align="center" src="assets/images/pre-loader2.gif" /><br>
+      <strong>BOOM</strong> v<!-- VERSION START -->0.0.0d<!-- VERSION END --></small>
+    </div>
+    <!-- SCRIPT START --> 
+    <script type="text/javascript" src="bower_components/react/react-with-addons.js"></script>
+    <script type="text/javascript" src="bower_components/react/JSXTransformer.js"></script>
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/jquery-ui/jquery-ui.min.js"></script>
+ 
+    <script type="text/javascript" src="bower_components/ciseaux/build/ciseaux.min.js"></script>
+    
+    <script type="text/javascript" src="assets/js/waveform.js"></script>
+    <script type="text/javascript" src="assets/js/app.js"></script> 
+    <script type="text/jsx" src="assets/js/react-component-device.js"></script> 
+    <script type="text/javascript" src="bower_components/webcomponentsjs/webcomponents.js"></script>
+    <!-- SCRIPT END -->
+  </body>
+</html>
