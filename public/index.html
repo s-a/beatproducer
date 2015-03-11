@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
+  <title>bpnet_european_hip_hop_beat_090bpm</title>
   <meta name="mobile-web-app-capable" content="yes">
   <meta author="Stephan Ahlf">
   <link rel="icon" sizes="192x192" href="/icon.png">
@@ -10,6 +10,7 @@
   <link rel="import" href="bower_components/core-icons/av-icons.html">
   <link rel="import" href="bower_components/core-icon-button/core-icon-button.html">
   <link rel="import" href="bower_components/core-scaffold/core-scaffold.html">
+  <link rel="import" href="bower_components/paper-slider/paper-slider.html">
   <!-- STYLE START -->
   <link rel="stylesheet" type="text/css" href="assets/css/main.css">
   <!-- STYLE END -->
@@ -24,11 +25,19 @@
           </div>
         </core-toolbar>
         <core-menu>
-          <core-item label="Help" onclick="window.open('')"></core-item>
+          <core-item label="Wiki" onclick="window.open('https://github.com/s-a/beatproducer/wiki')"></core-item>
+          <core-item label="Quick Share this song" onclick="window.open('')"></core-item>
+          <core-item label="Open Sample DB"  onclick="window.open('https://s-a.github.io/sample-db/')"></core-item>
+          <core-item label="Submit a bug"  onclick="window.open('https://github.com/s-a/beatproducer/issues')"></core-item>
+          <core-item label="Source Code" onclick="window.open('https://github.com/s-a/beatproducer')"></core-item>
         </core-menu>
       </core-header-panel>
       <div tool>
-        tools
+        <section>
+          <div center horizontal layout> 
+            <span>bpm</span> <paper-slider value="160" min="10" max="300" editable></paper-slider>
+          </div>
+        </section>
       </div>
       <div id="pattern-editor"></div>
       <div id="content" class="boom-sound-player"></div>

@@ -19,6 +19,7 @@
     "core-menu": "Polymer/core-menu#~0.5.5",
     "core-scaffold": "Polymer/core-scaffold#~0.5.5",
     "core-toolbar": "Polymer/core-toolbar#~0.5.5",
+    "core-toolbar": "Polymer/paper-slider#~0.5.5",
     "jquery-ui": "~1.11.3",
     "react": "~0.12.2",
     "link.js": ""
