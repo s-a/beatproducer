@@ -1,3 +1,10 @@
+paper-slider::shadow #sliderBar::shadow #activeProgress {
+  background-color: #1F1F1F;
+}
+
+paper-slider::shadow #sliderKnobInner {
+  background-color: #1F1F1F;
+}
 
 #mainContainer{
   background-color: #526E9C !important;

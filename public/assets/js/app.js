@@ -775,6 +775,17 @@
 })(jQuery, window.Waveform, window.Ciseaux);
 
 
+
+var bpm = document.querySelector('#bpm');
+bpm.addEventListener('core-change', function() {
+  debugger;
+  if (studio.project){
+    studio.project.bpm = bpm.value;
+  }
+});
+
+
+
 var studio = new window.boom.Studio();
 var projectConfig = {
   bpm : 080,
@@ -802,6 +813,8 @@ var projectConfig = {
 
 
 studio.init(projectConfig, function() {
+  debugger;
+  bpm.value = this.project.bpm;
   var device = studio.project._el.state.devices[0];
   var tape1 = device.tape;
   // var tape = tape3.slice(0.1, 0.7);
