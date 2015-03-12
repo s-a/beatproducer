@@ -211,6 +211,9 @@ paper-slider::shadow #sliderKnobInner {
   font-weight: bold;
 }
 
+#pattern-editor{
+  display: none;
+}
 
 html /deep/ [layout][vertical] #mainContainer{
   background-color: #0D0D0D;

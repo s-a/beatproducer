@@ -1,6 +1,7 @@
 (function($, Waveform, Ciseaux){
 
   var sampleDbPath = "./../audio/sample-db/";
+  
   var AudioContext = window.AudioContext || window.webkitAudioContext;
 
   if (!AudioContext){
@@ -412,16 +413,29 @@
       }
     };
 
+    
+
     Device.prototype.open = function(url, done) {
       var self = this;
       if (!self._el){
         self.render(function() {
           self._el = this;
           self.setLoadingProgressIndicator(true);
-          self.load(url, done);
+          self.load(url, function() {
+          	if (done){
+          	  $.proxy(done, self)(self);
+          	}
+          	self.chopSlices();
+          });
+
         });
       } else {
-        self.load(url, done);
+        self.load(url, function() {
+        	if (done){
+        	  $.proxy(done, self)(self);
+        	}
+        	self.chopSlices();
+        });
         self.setLoadingProgressIndicator(true);
       }
     };  
@@ -591,15 +605,13 @@
 
       self.project = new self.Project(parentElement);
       self.project.studio = self;
-      $('#gui-loading-progress').fadeOut("fast", function() {
-        self.project.renderGUI(function() {
-            self.patternEditor = new PatternEditor();
-            self.patternEditor.renderGUI(function(){
-              $('#gui').fadeIn("slow", function(){
-                done();
-              });
+      self.project.renderGUI(function() {
+          self.patternEditor = new PatternEditor();
+          self.patternEditor.renderGUI(function(){
+            $('#gui').fadeIn("slow", function(){
+              done();
             });
-        });
+          });
       });
     };
 
@@ -614,15 +626,16 @@
             self.renderGUI(document.getElementById('content'), function() {
               if (initialProjectConfig){
                 self.project.bpm = initialProjectConfig.bpm;
+                self.project.name = initialProjectConfig.name;
                 self.project.open(initialProjectConfig, function(projectConfig) {
                   //say("the song \"" + projectConfig.name+ "\" is ready on " + projectConfig.bpm + " beats per minute!");
                   if (done){
-                    $.proxy(done, self)();
+                    $.proxy(done, self)(initialProjectConfig);
                   }
                 });
               } else {
                 if (done){
-                  $.proxy(done, self)();
+                  $.proxy(done, self)(initialProjectConfig);
                 }
               }
             });
@@ -750,13 +763,25 @@
             self.bufSrc.buffer = self.audioBuffer;
             self.bufSrc.connect(self.destination);
             self.bufSrc.onended = function() {
-              if (done){
                 $.proxy(done, self);
-              }
             };
+            self.bufSrc.loop = true;
             self.bufSrc.start(0, 0);
           });
         });
+    };
+
+    Pattern.prototype.stop = function() {
+      var self = this;
+      self.pause();
+      self.transportTime = 0;
+    };
+
+    Pattern.prototype.pause = function() {
+      if (this.tape && this.bufSrc) {
+        debugger;
+        this.bufSrc.stop();
+      }
     };
 
   /* ******************** PUBLIC ************************************************************  */
@@ -778,7 +803,6 @@
 
 var bpm = document.querySelector('#bpm');
 bpm.addEventListener('core-change', function() {
-  debugger;
   if (studio.project){
     studio.project.bpm = bpm.value;
   }
@@ -812,15 +836,17 @@ var projectConfig = {
 };
 
 
-studio.init(projectConfig, function() {
+studio.init(projectConfig, function(config) {
   debugger;
+  document.title = this.project.name;
   bpm.value = this.project.bpm;
-  var device = studio.project._el.state.devices[0];
-  var tape1 = device.tape;
+  //var device = this.project._el.state.devices[0];
+  //var tape1 = device.tape;
   // var tape = tape3.slice(0.1, 0.7);
   //tape = tape3.slice(0, 0.5).concat(Ciseaux.silence(0.5)).loop(4);
 
-  this.patternEditor.open(device);
+  $('#gui-loading-progress').fadeOut("fast", function() {
+  });
   //window.slice.play();
   /*
   studio.project.newDevice({tape:tape2}, function  () {

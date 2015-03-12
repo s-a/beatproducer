@@ -1,5 +1,6 @@
 ;(function($, boom, BoomDevice, BoomProject, BoomPatternEditor) {
 
+  var sampleDbPath = "./../audio/sample-db/";
 
   var Project = React.createClass({
     getInitialState: function() {
@@ -25,8 +26,12 @@
   });
 
   var Device = React.createClass({
+    handleOnOpenPatternEditorClick :function() {
+      $("#pattern-editor").slideDown("fast");
+      window.studio.patternEditor.open(this.state.device);
+    },
     handleOnOpenClick :function() {
-      this.state.device.open("./audio/bpNet_108_the dawn_of_a_souled_hip_hop_rhythm.wav", function  () {
+      this.state.device.open( sampleDbPath + "beatproducer-drum-loops-pack-1/bpnet_another-day-in-paradise_095bpm_4bars.wav", function  () {
       });
     },
     handleOnPlayClick :function() {
@@ -81,7 +86,7 @@
                 <a className="device-button device-button-pause" href="javascript:void(0);" onClick={this.handleOnPauseClick}><img width="32" src="assets/images/ic_pause_circle_fill_48px.svg" type="image/svg+xml" /></a> 
                 <a className="device-button device-button-stop" href="javascript:void(0);" onClick={this.handleOnStopClick}><img width="32" src="assets/images/ic_stop_48px.svg"/></a> 
                 <a className="device-button device-button-opensample" href="javascript:void(0);" onClick={this.handleOnOpenClick}><img width="32" src="assets/images/ic_folder_open_48px.svg"/></a> 
-                <a className="device-button device-button-pattern-editor" href="javascript:void(0);" onClick={this.handleOnOpenClick}><img width="32" src="assets/images/ic_queue_music_48px.svg"/></a> 
+                <a className="device-button device-button-pattern-editor" href="javascript:void(0);" onClick={this.handleOnOpenPatternEditorClick}><img width="32" src="assets/images/ic_queue_music_48px.svg"/></a> 
               </div> ;
     }
   });
@@ -113,6 +118,12 @@
     },
     handleOnPlayClick : function  (e) {
       this.state.connectedDevice.patterns[0].play();
+    },
+    handleOnPauseClick : function  (e) {
+      this.state.connectedDevice.patterns[0].pause();
+    },
+    handleOnStopClick : function  (e) {
+      this.state.connectedDevice.patterns[0].stop();
     },
     handleOnStepClick : function  (e) {
       var $el = $(e.target);
@@ -210,9 +221,8 @@
 
       return  <div className="device-element-outset device">
                 <a className="device-button device-button-play" href="javascript:void(0);" onClick={this.handleOnPlayClick}><img width="32" src="assets/images/ic_play_circle_fill_48px.svg" type="image/svg+xml" /></a> 
-                <a className="device-button device-button-pause" href="javascript:void(0);" onClick={this.handleOnPauseClick}><img width="32" src="assets/images/ic_pause_circle_fill_48px.svg" type="image/svg+xml" /></a> 
-                <a className="device-button device-button-stop" href="javascript:void(0);" onClick={this.handleOnStopClick}><img width="32" src="assets/images/ic_stop_48px.svg"/></a> 
-                <strong className="device-name">PE</strong> - <small className="device-transport-time">{this.state.connectedDeviceName}</small> | <small className="device-transport-time">PATTEN NAME</small>
+                <a className="device-button device-button-stop" href="javascript:void(0);" onClick={this.handleOnStopClick}><img width="32" src="assets/images/ic_stop_48px.svg" type="image/svg+xml" /></a> 
+                <strong className="device-name">PE</strong> - <small className="device-transport-time">{this.state.connectedDeviceName}</small> | <small className="device-transport-time">PATTERN NAME</small>
                 <div className="device-element-outset pattern-editor">
                   <div className="pattern">{rows}</div>
                 </div> 
