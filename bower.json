@@ -15,6 +15,7 @@
     "tests"
   ],
   "dependencies": {
+    "underscore": "",
     "ciseaux": "~0.1.7",
     "core-menu": "Polymer/core-menu#~0.5.5",
     "core-scaffold": "Polymer/core-scaffold#~0.5.5",
