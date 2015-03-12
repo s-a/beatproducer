@@ -16,10 +16,6 @@
         return <div className={cls}><Device device={device} /></div>;
       }.bind(this));
       return  <div className="device-element-inset project-rack">
-                <div>
-                  <strong>{this.state.name}</strong> - <span>{this.state.bpm}</span>
-                </div>
-
                 {devices}
               </div> ;
     }
