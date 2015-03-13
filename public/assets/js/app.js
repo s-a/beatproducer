@@ -106,7 +106,6 @@
 			return result;
 		}
 
-
 	/* ******************** DEVICE ************************************************************  */
 
 		var Device = function(_el) {
@@ -483,7 +482,7 @@
 				sample : this.filename,
 				slices : slices(),
 				patterns : patterns()
-			}
+			};
 		};
 
 	/* ******************** PROJECT ************************************************************  */
@@ -859,9 +858,7 @@
 							done();
 						}
 					},5000);
-				}, function() {
-					alert("error while fork.");
-				});
+				}, self.onError);
 			};
 			this.fork.getInfo().then(done, onRejected);
 		};
@@ -885,9 +882,7 @@
 
 		User.prototype.saveSong = function(data, commitMessage, done) {
 			var filename = "projects/" + this.username + '_' + this.branchname + ".json";
-			this.branch.write(filename, data, commitMessage, false).then(function(err) {
-				if (done){ done(); }
-			});
+			this.branch.write(filename, data, commitMessage, false).then(done, this.onError);
 		};
 
 		User.prototype.onError = function(a) {
@@ -908,6 +903,38 @@
 			this.repo.createPullRequest(pull).then(done, this.onError);
 		};
 
+	/* ******************** GUI ************************************************************  */
+		var GUI = function  (studio) {
+			this.initEventListeners();
+			return this;
+		};
+
+		GUI.prototype.onPublishClick = function(first_argument) {
+			var username = "";
+			var password = "";
+			var user = new window.boom.User();
+
+			user.login(username, password, function(){
+				user.newSong("test", function() {
+					var msg = 'changed the song ' + new Date().getTime().toString();
+					var data = studio.project.configString();
+					user.saveSong(data, msg, function() {
+						user.publish(function() { console.log("done"); });
+					});
+				});
+			});
+		};
+
+		GUI.prototype.initEventListeners = function() {
+			var self = this;
+			window.addEventListener('polymer-ready', function (e) {
+				$("#gui").get(0).responsiveWidth = "1920px";
+			});
+			$(function() {
+				$("#studio-button-publish").click(self.onPublishClick);
+			});
+		};
+		
 	/* ******************** PUBLIC ************************************************************  */
 
 		if (!window.boom){
@@ -918,7 +945,8 @@
 				Slice : Slice,
 				Project : Project,
 				PatternEditor : PatternEditor,
-				User : User
+				User : User,
+				GUI: GUI
 			};
 		}
 
@@ -937,7 +965,7 @@ bpm.addEventListener('core-change', function() {
 
 
 
-var projectConfig = {
+var defaultProject = {
 	bpm : 080,
 	name : "The dawn of a souled hip hop rhythm.",
 	devices: [
@@ -961,8 +989,9 @@ var projectConfig = {
 	]
 };
 
+var gui = new window.boom.GUI(studio);
 
-studio.init(projectConfig, function(config) {
+studio.init(defaultProject, function(config) {
 
 	var self = this;
 	document.title = this.project.name;
@@ -970,23 +999,7 @@ studio.init(projectConfig, function(config) {
 
 
 	$('#gui-loading-progress').fadeOut("fast", function() {
-		var username = "";
-		var password = "";
-		var user = new window.boom.User();
-
-		user.login(username, password, function(){
-			user.newSong("test", function() {
-				var msg = 'changed the song ' + new Date().getTime().toString();
-				var data = self.project.configString();
-				user.saveSong(data, msg, function() {
-					user.publish(function() { console.log("done"); });
-				});
-			});
-		});
 	});
 
 });
 
-window.addEventListener('polymer-ready', function (e) {
- document.getElementById("gui").responsiveWidth = "1920px";
-});
