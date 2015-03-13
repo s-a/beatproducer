@@ -910,8 +910,9 @@
 		};
 
 		GUI.prototype.onPublishClick = function(first_argument) {
-			var username = "";
-			var password = "";
+			debugger;
+			var username = window.credentials.uid;
+			var password = window.credentials.pwd;
 			var user = new window.boom.User();
 
 			user.login(username, password, function(){
