@@ -1,4 +1,3 @@
- - remember credentials with cookies
  - rebuild bower.js
  - write test suite
  - Sequencer editor using https://github.com/taye/interact.js

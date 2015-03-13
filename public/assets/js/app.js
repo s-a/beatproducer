@@ -921,18 +921,22 @@
 
 	/* ******************** GUI ************************************************************  */
 		var GUI = function  (studio) {
-			this.credentials = {
-				uid : "",
-				pwd : ""
-			};
-			this.initEventListeners();
-
 			if (!AudioContext){
 				this.alert("Oh NO! Your Browser does not suppert AudioContext!?. We suggest Google Chrome to use this website. Maybe one day your browser will support new web technologies.");
 				window.setTimeout(function() {
 					window.location = "https://www.google.com/chrome/browser/desktop/";
 				}, 5000);
+			} else {
+				this.credentials = {
+					uid : $.cookie("uid"),
+					pwd : $.cookie("pwd")
+				};
+				$(".input-login-uid:first").val(this.credentials.uid);
+				$(".input-login-pwd:first").val(this.credentials.pwd);
+
+				this.initEventListeners();
 			}
+
 
 			return this;
 		};
@@ -975,6 +979,11 @@
 		GUI.prototype.loginAction = function(a,b,c,d) {
 			window.gui.credentials.uid = this.parentElement.querySelector(".input-login-uid").value;
 			window.gui.credentials.pwd = this.parentElement.querySelector(".input-login-pwd").value;
+			var chk = $("#remember-login-password").get(0);
+			if (chk.checked){
+				$.cookie('uid', window.gui.credentials.uid, { expires: 365 });
+				$.cookie('pwd', window.gui.credentials.pwd, { expires: 365 });
+			}
 		};
 
 		GUI.prototype.initEventListeners = function() {

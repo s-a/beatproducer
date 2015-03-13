@@ -20,6 +20,7 @@
   <link href="bower_components/paper-input/paper-char-counter.html" rel="import">
   <link href="bower_components/paper-dialog/paper-dialog.html" rel="import">
   <link href="bower_components/paper-dialog/paper-action-dialog.html" rel="import">
+  <link href="bower_components/paper-checkbox/paper-checkbox.html" rel="import">
 
   <!-- STYLE START -->
   <link rel="stylesheet" type="text/css" href="assets/css/main.css">
@@ -29,9 +30,8 @@
 
     <paper-action-dialog backdrop autoCloseDisabled layered="false" transition="core-transition-top" id="login-dialog" style="display:none;">
 
-      <h1>Login with your GitHub account</h1>
-
-      <h3>Beatproducer Studio is using GitHub to manage created songs. <br>If you do not have an account there yet you can <a href="http://github.com" target="_blank">register now</a> for free!</h3>
+      <h4>Login with your GitHub account</h4>
+      <h5>Beatproducer Studio is using GitHub to manage created songs. <br>If you do not have an account there yet you can <a href="http://github.com" target="_blank">register now</a> for free!</h5>
       <paper-input-decorator label="Username" floatingLabel error="input is required!" autoValidate>
         <input is="core-input" class="input-login-uid" required>
       </paper-input-decorator>
@@ -39,6 +39,12 @@
         <input is="core-input" class="input-login-pwd" type="password" class="input-login-pwd" required>
       </paper-input-decorator>
 
+      <core-label horizontal layout>
+        <paper-checkbox id="remember-login-password" for></paper-checkbox> 
+        &nbsp;Remember my password
+        <!-- <i>Do not check this on public workstations!</i> -->
+      </core-label>
+      <br>
       <paper-button affirmative dismissive>Cancel</paper-button>
       <paper-button affirmative default id="btn-login">Login</paper-button>
 
@@ -98,6 +104,7 @@
     <script type="text/javascript" src="bower_components/react/react-with-addons.js"></script>
     <script type="text/javascript" src="bower_components/react/JSXTransformer.js"></script>
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/jquery.cookie/jquery.cookie.js"></script>
     <script type="text/javascript" src="bower_components/octokit/octokit.js"></script>
     <script type="text/javascript" src="bower_components/ciseaux/build/ciseaux.min.js"></script>
 
