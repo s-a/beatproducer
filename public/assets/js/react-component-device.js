@@ -127,7 +127,6 @@
       var step = parseInt($el.data("step"));
       var device = this.state.connectedDevice;
       var sequence = device.patterns[0].sequence;
-      debugger;
       var subSequence = sequence[step];
       var sliceIdx = subSequence.indexOf(sliceIndex);
       if (sliceIdx === -1){
