@@ -8,6 +8,7 @@
   <link rel="import" href="bower_components/core-menu/core-menu.html">
   <link rel="import" href="bower_components/core-item/core-item.html">
   <link rel="import" href="bower_components/core-icons/av-icons.html">
+  <link rel="import" href="bower_components/core-icons/social-icons.html">
   <link rel="import" href="bower_components/core-icon-button/core-icon-button.html">
   <link rel="import" href="bower_components/core-scaffold/core-scaffold.html">
   <link rel="import" href="bower_components/paper-slider/paper-slider.html">
@@ -25,27 +26,33 @@
           </div>
         </core-toolbar>
         <core-menu>
-          <core-item label="Wiki" onclick="window.open('https://github.com/s-a/beatproducer/wiki')"></core-item>
-          <core-item label="Quick Share this song" onclick="window.open('')"></core-item>
-          <core-item label="Open Sample DB"  onclick="window.open('https://s-a.github.io/sample-db/')"></core-item>
-          <core-item label="Submit a bug"  onclick="window.open('https://github.com/s-a/beatproducer/issues')"></core-item>
-          <core-item label="Source Code" onclick="window.open('https://github.com/s-a/beatproducer')"></core-item>
+          <core-item id="studio-button-new" icon="description" label="New"></core-item>
+          <core-item id="studio-button-open" icon="folder-open" label="Open"></core-item>
+          <core-item id="studio-button-save" icon="save" label="Save"></core-item>
+          <core-item id="studio-button-publish" icon="social:communities" label="Publish"></core-item>
+          <core-item id="studio-button-download" icon="cloud-download" label="Download Wav"></core-item>
+          <core-item id="studio-button-share-song" icon="open-in-new" label="Share link"></core-item>
+          <core-item id="studio-button-favorite" icon="favorite-outline" label="favorite"></core-item>
+
+          <core-item icon="social:school" label="Wiki" onclick="window.open('https://github.com/s-a/beatproducer/wiki')"></core-item>
+          <core-item icon="social:share" label="Share in Social Networks" onclick="window.open('')"></core-item>
+          <core-item icon="av:my-library-music" label="Open Sample DB"  onclick="window.open('https://s-a.github.io/sample-db/')"></core-item>
+          <core-item icon="bug-report" label="Submit a bug"  onclick="window.open('https://github.com/s-a/beatproducer/issues')"></core-item>
+          <core-item icon="social:post-github" label="Source Code" onclick="window.open('https://github.com/s-a/beatproducer')"></core-item>
         </core-menu>
       </core-header-panel>
       <div tool>
         <section>
           <div center horizontal layout> 
-            <span>BPM </span> <paper-slider id="bpm" value="" min="10" max="300" editable></paper-slider>
-            <core-icon-button icon="av:play-circle-fill"></core-icon-button>
-            <core-icon-button icon="av:stop"></core-icon-button>
-            <core-icon-button icon="av:pause-circle-fill"></core-icon-button>
-            <core-icon-button icon="save"></core-icon-button>
-            <core-icon-button icon="folder-shared"></core-icon-button>
-            <core-icon-button icon="cloud-download"></core-icon-button>
-            <core-icon-button icon="open-in-new"></core-icon-button>
-            <core-icon-button icon="favorite-outline"></core-icon-button>
+            <span>BPM </span> 
+            <paper-slider id="bpm" value="" min="10" max="300" editable></paper-slider>
+            <core-icon-button id="studio-button-play" icon="av:play-circle-fill"></core-icon-button>
+            <core-icon-button id="studio-button-stop" icon="av:stop"></core-icon-button>
+            <core-icon-button id="studio-button-pause" icon="av:pause-circle-fill"></core-icon-button>
           </div>
         </section>
+      </div>
+      <div>
       </div>
       <div id="pattern-editor"></div>
       <div id="content" class="boom-sound-player"></div>
