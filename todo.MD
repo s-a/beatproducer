@@ -1,3 +1,6 @@
+ - remove jquery ui
+ - rebuild bower.js
+ - write test suite
  - Sequencer editor using https://github.com/taye/interact.js
  - Slice/chop editor belowe device
  - open /search songs
