@@ -147,6 +147,7 @@ module.exports = function(grunt) {
 			my_target: {
 				files: {
 					'./studio/assets/js/app.minified.js': [
+						"./public/bower_components/octokit/octokit.js",
 						"./public/assets/js/waveform.js",
 						"./public/assets/js/app.js",
 						'./studio/assets/js/react-component-*.js',
