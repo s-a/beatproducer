@@ -15,6 +15,9 @@ A (experimental) beat producer environment based on the web audio API.
 ## Browser Support
 Except Microsoft Internet Explorer [the most major browsers are supported](http://caniuse.com/#search=Web%20Audio%20API).  
 
+## Projects
+The beatproducer studio is using the [beatproducer project channel](https://github.com/s-a/beatproducer-projects) repository. It is managed by the beatproducer studio GUI to store your personal song and publish them to the community.
+
 ## Samples
 The beatproducer studio is using the [Open Sample DB](https://github.com/s-a/sample-db) repository. You are welcome to contribute here too. Take look at current [loops and samples online](https://s-a.github.io/sample-db/).
 
