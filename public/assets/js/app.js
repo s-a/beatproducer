@@ -663,26 +663,23 @@
 			//$(function() {
 			$("body").one("react-components-ready", function() {
 				window.gui.alert("loading project");
-					window.gui.alert("loading project")
-						self.renderGUI(document.getElementById('content'), function() {
-							if (initialProjectConfig){
-								self.project.bpm = initialProjectConfig.bpm;
-								self.project.name = initialProjectConfig.name;
-								self.project.open(initialProjectConfig, function(projectConfig) {
-									window.gui.alert("the song " + projectConfig.name+ " is ready on " + projectConfig.bpm + " beats per minute!");
-									if (done){
-										$.proxy(done, self)(initialProjectConfig);
-									}
-								});
-							} else {
-								if (done){
-									$.proxy(done, self)(initialProjectConfig);
-								}
+				self.renderGUI(document.getElementById('content'), function() {
+					if (initialProjectConfig){
+						self.project.bpm = initialProjectConfig.bpm;
+						self.project.name = initialProjectConfig.name;
+						self.project.open(initialProjectConfig, function(projectConfig) {
+							window.gui.alert("the song " + projectConfig.name+ " is ready on " + projectConfig.bpm + " beats per minute!");
+							if (done){
+								$.proxy(done, self)(initialProjectConfig);
 							}
 						});
-					//});
+					} else {
+						if (done){
+							$.proxy(done, self)(initialProjectConfig);
+						}
+					}
+				});
 			});
-			//});
 		};
 
 	/* ******************** SLICE ************************************************************  */
@@ -849,7 +846,6 @@
 
 			var onRejected = function(res) {
 				if (res.status === 401){
-					debugger;
 					self.onError(res);
 				} else {
 					self.repo.fork().then(function() {
@@ -948,15 +944,13 @@
 				toast.remove();
 			});
 			toast.get(0).show();
-			//document.querySelector('#toast').show();
 		};
 
 		GUI.prototype.onLoginClick = function(el) {
 			document.querySelector('#login-dialog').toggle();
-		}
+		};
 
 		GUI.prototype.onPublishClick = function(el) {
-			debugger;
 			var username = window.gui.credentials.uid;
 			var password = window.gui.credentials.pwd;
 

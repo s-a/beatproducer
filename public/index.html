@@ -59,20 +59,25 @@
           </div>
         </core-toolbar>
         <core-menu>
-          <core-item id="studio-button-login" icon="accessibility" label="Login"></core-item>
+          <core-item id="studio-button-login" icon="settings-power" label="Login"></core-item>
+
+          <core-label horizontal layout><br>Project<br></core-label>
           <core-item id="studio-button-new" icon="description" label="New"></core-item>
           <core-item id="studio-button-open" icon="folder-open" label="Open"></core-item>
           <core-item id="studio-button-save" icon="save" label="Save"></core-item>
-          <core-item id="studio-button-publish" icon="social:communities" label="Publish"></core-item>
-          <core-item id="studio-button-download" icon="cloud-download" label="Download Wav"></core-item>
-          <core-item id="studio-button-share-song" icon="open-in-new" label="Share link"></core-item>
-          <core-item id="studio-button-favorite" icon="favorite-outline" label="favorite"></core-item>
+          <core-item id="studio-button-download" icon="cloud-download" label="Download Wav File"></core-item>
 
-          <core-item icon="social:school" label="Wiki" onclick="window.open('https://github.com/s-a/beatproducer/wiki')"></core-item>
-          <core-item icon="social:share" label="Share in Social Networks" onclick="window.open('')"></core-item>
+          <core-label horizontal layout><br>Share<br></core-label>
+          <core-item id="studio-button-publish" icon="group-work" label="Project Channel"></core-item>
+          <core-item id="studio-button-share-song" icon="open-in-new" label="via link"></core-item>
+          <core-item icon="social:share" label="Social Networks" onclick="window.open('')"></core-item>
+          <core-item id="studio-button-favorite" icon="favorite-outline" label="Favorite Song"></core-item>
+
+          <core-label horizontal layout><br>Resources<br></core-label>
+          <core-item icon="social:school" label="Getting Started" onclick="window.open('https://github.com/s-a/beatproducer/wiki')"></core-item>
           <core-item icon="av:my-library-music" label="Open Sample DB"  onclick="window.open('https://s-a.github.io/sample-db/')"></core-item>
           <core-item icon="bug-report" label="Submit a bug"  onclick="window.open('https://github.com/s-a/beatproducer/issues')"></core-item>
-          <core-item icon="social:post-github" label="Source Code" onclick="window.open('https://github.com/s-a/beatproducer')"></core-item>
+          <core-item icon="create" label="Source Code" onclick="window.open('https://github.com/s-a/beatproducer')"></core-item>
         </core-menu>
       </core-header-panel>
       <div tool>
@@ -100,7 +105,6 @@
       <strong>BOOM</strong> v<!-- VERSION START -->0.0.0d<!-- VERSION END --></small>
     </div>
     <!-- SCRIPT START -->
-    <script type="text/javascript" src="assets/js/credentials.js"></script>
     <script type="text/javascript" src="bower_components/react/react-with-addons.js"></script>
     <script type="text/javascript" src="bower_components/react/JSXTransformer.js"></script>
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
