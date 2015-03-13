@@ -26,19 +26,19 @@
   <!-- STYLE END -->
 </head>
   <body>
-    
+
     <paper-action-dialog backdrop autoCloseDisabled layered="false" transition="core-transition-top" id="login-dialog" style="display:none;">
-     
+
       <h1>Login with your GitHub account</h1>
 
-      <h3>Beatproducer Studio is using GitHub to manage created songs. <br>If you do not have an account there yet you can <a href="http://github.com">register now</a> for free!</h3>
+      <h3>Beatproducer Studio is using GitHub to manage created songs. <br>If you do not have an account there yet you can <a href="http://github.com" target="_blank">register now</a> for free!</h3>
       <paper-input-decorator label="Username" floatingLabel error="input is required!" autoValidate>
         <input is="core-input" class="input-login-uid" required>
       </paper-input-decorator>
       <paper-input-decorator label="Password" floatingLabel error="input is required!" autoValidate>
         <input is="core-input" class="input-login-pwd" type="password" class="input-login-pwd" required>
       </paper-input-decorator>
-      
+
       <paper-button affirmative dismissive>Cancel</paper-button>
       <paper-button affirmative default id="btn-login">Login</paper-button>
 
@@ -71,8 +71,8 @@
       </core-header-panel>
       <div tool>
         <section>
-          <div center horizontal layout> 
-            <span>BPM </span> 
+          <div center horizontal layout>
+            <span>BPM </span>
             <paper-slider id="bpm" value="" min="10" max="300" editable></paper-slider>
             <core-icon-button id="studio-button-play" icon="av:play-circle-fill"></core-icon-button>
             <core-icon-button id="studio-button-stop" icon="av:stop"></core-icon-button>
@@ -81,7 +81,7 @@
           </div>
         </section>
       </div>
-     
+
 
 
       <div id="pattern-editor"></div>
@@ -93,22 +93,18 @@
       <img align="center" src="assets/images/pre-loader2.gif" /><br>
       <strong>BOOM</strong> v<!-- VERSION START -->0.0.0d<!-- VERSION END --></small>
     </div>
-    <!-- SCRIPT START --> 
+    <!-- SCRIPT START -->
     <script type="text/javascript" src="assets/js/credentials.js"></script>
     <script type="text/javascript" src="bower_components/react/react-with-addons.js"></script>
     <script type="text/javascript" src="bower_components/react/JSXTransformer.js"></script>
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="bower_components/jquery-ui/jquery-ui.min.js"></script>
     <script type="text/javascript" src="bower_components/octokit/octokit.js"></script>
-
-    <!-- <script type="text/javascript" src="bower_components/underscore/underscore-min.js"></script> -->
- 
     <script type="text/javascript" src="bower_components/ciseaux/build/ciseaux.min.js"></script>
-    
+
     <script type="text/javascript" src="assets/js/waveform.js"></script>
     <!-- <script type="text/javascript" src="assets/js/github.js"></script> -->
-    <script type="text/javascript" src="assets/js/app.js"></script> 
-    <script type="text/jsx" src="assets/js/react-component-device.js"></script> 
+    <script type="text/javascript" src="assets/js/app.js"></script>
+    <script type="text/jsx" src="assets/js/react-component-device.js"></script>
     <script type="text/javascript" src="bower_components/webcomponentsjs/webcomponents.js"></script>
     <!-- SCRIPT END -->
   </body>
