@@ -5,3 +5,29 @@
 [![Coverage Status](http://img.shields.io/coveralls/s-a/beatproducer.svg?style=flat-square)](https://coveralls.io/r/s-a/beatproducer?branch=master)
 [![License](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](http://s-a.mit-license.org/)
 
+
+## Work in progress...
+
+## About
+This is the famous [beatproducer studio](https://s-a.github.io/beatproducer/studio/) project XD.  
+A (experimental) beat producer environment based on the web audio API.  
+
+## Browser Support
+Except Microsoft Internet Explorer [the most major browsers are supported](http://caniuse.com/#search=Web%20Audio%20API).  
+
+## Samples
+The beatproducer studio is using the [Open Sample DB](https://github.com/s-a/sample-db) repository. You are welcome to contribute here too. Take look at current [loops and samples online](https://s-a.github.io/sample-db/).
+
+## Contributing
+
+1. Fork it
+2. Create your feature branch: `git checkout -b my-new-feature`
+3. Commit your changes: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin my-new-feature`
+5. Submit a pull request :D
+
+## License
+
+[MIT](http://s-a.mit-license.org/)
+
+That's all folks! And now visit the [beatproducer studio online](https://s-a.github.io/beatproducer/studio/) and create or listen something awesome! :O)
