@@ -2,9 +2,10 @@
  - write test suite
  - Sequencer editor using https://github.com/taye/interact.js
  - Slice/chop editor belowe device
- - open /search songs
+ - zoom waveform
+ - full screen waveform
+ - open / search songs
  - save song
- - new song
  - fork song
  - slice key settings {baseKey : 'C-0', range {start:-2, stop: 10 }} // one octave
  - efx plugin system

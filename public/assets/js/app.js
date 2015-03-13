@@ -559,6 +559,7 @@
 						}
 			};
 
+			if (!projectConfig.devices || projectConfig.devices.length === 0) {done();}
 			for (var i = 0; i < projectConfig.devices.length; i++) {
 				self.newDevice(projectConfig.devices[i], onOpened);
 			}
@@ -659,24 +660,42 @@
 			var self = this;
 			var say = new this.Speech().say;
 
+			if (initialProjectConfig){
+				document.title = initialProjectConfig.name;
+			}
+
+			window.addEventListener('polymer-ready', function (e) {
+				if (initialProjectConfig){
+					self.gui.bpmSlider.value = initialProjectConfig.bpm;
+				}
+			});
+
 			$('#gui-loading-progress').fadeIn("fast", function() {});
 			//$(function() {
 			$("body").one("react-components-ready", function() {
-				window.gui.alert("loading project");
+				if (initialProjectConfig){
+					self.gui.alert("loading project");
+				}
 				self.renderGUI(document.getElementById('content'), function() {
 					if (initialProjectConfig){
 						self.project.bpm = initialProjectConfig.bpm;
 						self.project.name = initialProjectConfig.name;
 						self.project.open(initialProjectConfig, function(projectConfig) {
-							window.gui.alert("the song " + projectConfig.name+ " is ready on " + projectConfig.bpm + " beats per minute!");
+							$('#gui-loading-progress').fadeOut("fast", function() {
+								if (projectConfig){
+									self.gui.alert("the song " + projectConfig.name+ " is ready on " + projectConfig.bpm + " beats per minute!");
+								}
+								if (done){
+									$.proxy(done, self)(initialProjectConfig);
+								}
+							});
+						});
+					} else {
+						$('#gui-loading-progress').fadeOut("fast", function() {
 							if (done){
 								$.proxy(done, self)(initialProjectConfig);
 							}
 						});
-					} else {
-						if (done){
-							$.proxy(done, self)(initialProjectConfig);
-						}
 					}
 				});
 			});
@@ -870,13 +889,11 @@
 			$('#gui-loading-progress').fadeIn("fast", function() {
 				self.branchname = songname;
 				self.branch = self.fork.getBranch("master");
+
 				self.branch.createBranch(songname).then(function() {
 					self.branch = self.fork.getBranch(songname);
 					done();
-				}, function() {
-					self.branch = self.fork.getBranch(songname);
-					done();
-				});
+				}, self.onError);
 			});
 		};
 
@@ -889,13 +906,13 @@
 			var res = JSON.parse(a.message).errors;
 			if (!res){
 				res = JSON.parse(a.message);
-				res.resource = "login";
+				res.resource = "";
 			} else {
 				res = res[res.length-1];
 			}
 			var msg = res.resource + "\n\n" + res.message;
 			$('#gui-loading-progress').fadeOut("fast", function() {
-				if (res.resource === "login"){
+				if (a.status === 401){
 					window.gui.onLoginClick();
 				}
 				window.gui.alert(msg);
@@ -923,6 +940,7 @@
 					window.location = "https://www.google.com/chrome/browser/desktop/";
 				}, 5000);
 			} else {
+				this.studio = studio;
 				this.credentials = {
 					uid : $.cookie("uid"),
 					pwd : $.cookie("pwd")
@@ -950,6 +968,29 @@
 
 		GUI.prototype.onLoginClick = function(el) {
 			document.querySelector('#login-dialog').toggle();
+		};
+
+		GUI.prototype.onNewProjectClick = function(el) {
+			var songname = $.trim(prompt ("Please name your new masterpice","New Song"));
+			if (songname === ""){
+				window.gui.alert ("Please enter a songname!");
+			} else {
+				$('#gui-loading-progress').fadeIn("fast", function() {
+					var user = new window.boom.User();
+					debugger;
+					user.login(window.gui.credentials.uid, window.gui.credentials.pwd, function(){
+						user.newSong(songname, function() {
+							var msg = 'created a new song. yeah!';
+							var data = studio.project.configString();
+							user.saveSong(data, msg, function() {
+								$('#gui-loading-progress').fadeOut("fast", function() {
+									window.gui.alert ("Created new song " + songname);
+								});
+							});
+						});
+					});
+				});
+			}
 		};
 
 		GUI.prototype.onPublishClick = function(el) {
@@ -985,13 +1026,20 @@
 		GUI.prototype.initEventListeners = function() {
 			var self = this;
 			window.addEventListener('polymer-ready', function (e) {
-				//$("#gui").get(0).responsiveWidth = "1920px";
+				////$("#gui").get(0).responsiveWidth = "1920px";
 				window.Polymer.addEventListener(document.getElementById('btn-login'), 'tap', self.loginAction);
+				self.bpmSlider = document.querySelector('#bpm');
+				self.bpmSlider.addEventListener('core-change', function() {
+					if (self.studio.project){
+						self.studio.project.bpm = bpm.value;
+					}
+				});
 			});
 
 			$(function() {
 				$("#studio-button-publish").click(self.onPublishClick);
 				$("#studio-button-login").click(self.onLoginClick);
+				$("#studio-button-new").click(self.onNewProjectClick);
 			});
 		};
 
@@ -1013,15 +1061,6 @@
 
 })(jQuery, window.Waveform, window.Ciseaux);
 
-
-var studio = new window.boom.Studio();
-
-var bpm = document.querySelector('#bpm');
-bpm.addEventListener('core-change', function() {
-	if (studio.project){
-		studio.project.bpm = bpm.value;
-	}
-});
 
 
 
@@ -1049,16 +1088,8 @@ var defaultProject = {
 	]
 };
 
+var studio = new window.boom.Studio();
 var gui = window.gui = new window.boom.GUI(studio);
+studio.gui = gui;
 
-studio.init(defaultProject, function(config) {
-
-	var self = this;
-	document.title = this.project.name;
-	bpm.value = this.project.bpm;
-
-
-	$('#gui-loading-progress').fadeOut("fast", function() {});
-
-});
-
+studio.init(defaultProject, function(config) {});
