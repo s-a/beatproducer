@@ -3,7 +3,7 @@ module.exports = function(grunt) {
 	grunt.initConfig({
 		pkg : grunt.file.readJSON('package.json'),
 		jshint: {
-			beforeconcat: ['./public/assets/js/*.js', '!./public/assets/js/react-component-*.js', '!./public/assets/js/waveform.js']
+			beforeconcat: ['./public/assets/js/*.js', '!./public/assets/js/react-component-*.js', '!./public/assets/js/waveform.js', '!./public/assets/js/github.js']
 		},
 		clean: {
 		 	build: {
