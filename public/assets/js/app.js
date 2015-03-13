@@ -943,7 +943,9 @@
 			toast.get(0).addEventListener("core-overlay-close-completed", function() {
 				toast.remove();
 			});
-			toast.get(0).show();
+			if (toast.get(0).show){
+				toast.get(0).show();
+			}
 		};
 
 		GUI.prototype.onLoginClick = function(el) {
