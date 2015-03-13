@@ -12,11 +12,38 @@
   <link rel="import" href="bower_components/core-icon-button/core-icon-button.html">
   <link rel="import" href="bower_components/core-scaffold/core-scaffold.html">
   <link rel="import" href="bower_components/paper-slider/paper-slider.html">
+  <link rel="import" href="bower_components/paper-toast/paper-toast.html">
+  <link href="bower_components/font-roboto/roboto.html" rel="import">
+  <link href="bower_components/paper-input/paper-autogrow-textarea.html" rel="import">
+  <link href="bower_components/paper-input/paper-input-decorator.html" rel="import">
+  <link href="bower_components/paper-input/paper-input.html" rel="import">
+  <link href="bower_components/paper-input/paper-char-counter.html" rel="import">
+  <link href="bower_components/paper-dialog/paper-dialog.html" rel="import">
+  <link href="bower_components/paper-dialog/paper-action-dialog.html" rel="import">
+
   <!-- STYLE START -->
   <link rel="stylesheet" type="text/css" href="assets/css/main.css">
   <!-- STYLE END -->
 </head>
   <body>
+    
+    <paper-action-dialog backdrop autoCloseDisabled layered="false" transition="core-transition-top" id="login-dialog" style="display:none;">
+     
+      <h1>Login with your GitHub account</h1>
+
+      <h3>Beatproducer Studio is using GitHub to manage created songs. <br>If you do not have an account there yet you can <a href="http://github.com">register now</a> for free!</h3>
+      <paper-input-decorator label="Username" floatingLabel error="input is required!" autoValidate>
+        <input is="core-input" class="input-login-uid" required>
+      </paper-input-decorator>
+      <paper-input-decorator label="Password" floatingLabel error="input is required!" autoValidate>
+        <input is="core-input" class="input-login-pwd" type="password" class="input-login-pwd" required>
+      </paper-input-decorator>
+      
+      <paper-button affirmative dismissive>Cancel</paper-button>
+      <paper-button affirmative default id="btn-login">Login</paper-button>
+
+    </paper-action-dialog>
+
     <core-scaffold id="gui" >
 
       <core-header-panel navigation flex responsiveWidth="1000">
@@ -26,6 +53,7 @@
           </div>
         </core-toolbar>
         <core-menu>
+          <core-item id="studio-button-login" icon="accessibility" label="Login"></core-item>
           <core-item id="studio-button-new" icon="description" label="New"></core-item>
           <core-item id="studio-button-open" icon="folder-open" label="Open"></core-item>
           <core-item id="studio-button-save" icon="save" label="Save"></core-item>
@@ -49,13 +77,17 @@
             <core-icon-button id="studio-button-play" icon="av:play-circle-fill"></core-icon-button>
             <core-icon-button id="studio-button-stop" icon="av:stop"></core-icon-button>
             <core-icon-button id="studio-button-pause" icon="av:pause-circle-fill"></core-icon-button>
+            <core-icon-button id="studio-button-new-sampler" icon="add-box"><span>New Sampler</span></core-icon-button>
           </div>
         </section>
       </div>
-      <div>
-      </div>
+     
+
+
       <div id="pattern-editor"></div>
       <div id="content" class="boom-sound-player"></div>
+
+
     </core-scaffold>
     <div id="gui-loading-progress">
       <img align="center" src="assets/images/pre-loader2.gif" /><br>
