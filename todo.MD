@@ -2,6 +2,7 @@
  - write test suite
  - Sequencer editor using https://github.com/taye/interact.js
  - Slice/chop editor belowe device
+ - add tags to project configs
  - zoom waveform
  - full screen waveform
  - open / search songs

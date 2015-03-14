@@ -898,8 +898,14 @@
 		};
 
 		User.prototype.saveSong = function(data, commitMessage, done) {
+			var self = this;
 			var filename = "projects/" + this.username + '_' + this.branchname + ".json";
-			this.branch.write(filename, data, commitMessage, false).then(done, this.onError);
+			this.branch.write(filename, data, commitMessage, false).then(function() {
+				window.gui.user = self;
+				if (done){
+					done();
+				}
+			}, this.onError);
 		};
 
 		User.prototype.onError = function(a) {
@@ -977,12 +983,12 @@
 			} else {
 				$('#gui-loading-progress').fadeIn("fast", function() {
 					var user = new window.boom.User();
-					debugger;
 					user.login(window.gui.credentials.uid, window.gui.credentials.pwd, function(){
 						user.newSong(songname, function() {
 							var msg = 'created a new song. yeah!';
 							var data = studio.project.configString();
 							user.saveSong(data, msg, function() {
+								window.gui.user = user;
 								$('#gui-loading-progress').fadeOut("fast", function() {
 									window.gui.alert ("Created new song " + songname);
 								});
@@ -994,22 +1000,31 @@
 		};
 
 		GUI.prototype.onPublishClick = function(el) {
-			var username = window.gui.credentials.uid;
-			var password = window.gui.credentials.pwd;
+			var self = window.gui;
+			if (self.user && self.user.fork && self.user.branch){
 
-			if (username === "" || password === ""){
-				window.gui.onLoginClick();
-			} else {
-				var user = new window.boom.User();
-				user.login(username, password, function(){
-					user.newSong("test", function() {
-						var msg = 'changed the song ' + new Date().getTime().toString();
-						var data = studio.project.configString();
-						user.saveSong(data, msg, function() {
-							user.publish(function() { console.log("done"); });
+				/*var username = window.gui.credentials.uid;
+				var password = window.gui.credentials.pwd;
+
+				if (username === "" || password === ""){
+					window.gui.onLoginClick();
+				} else {*/
+					var user = self.user;
+					//user.login(username, password, function(){
+						user.saveSong(studio.project.configString(), 'changed the song', function() {
+							user.publish(function() {
+								$('#gui-loading-progress').fadeOut("fast", function() {
+									window.gui.alert ("Pul request created. It may take a while until your request is processed.");
+								});
+							});
 						});
-					});
-				});
+						/*user.newSong(user.branchname, function() {
+						});*/
+					//});
+				/*
+				}*/
+			} else {
+				window.gui.alert("Create or open a song to publish.");
 			}
 		};
 
