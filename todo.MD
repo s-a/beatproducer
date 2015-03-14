@@ -5,8 +5,8 @@
  - add tags to project configs
  - zoom waveform
  - full screen waveform
- - open / search songs
- - save song
+ - search & songs
+ - search & import song devices
  - fork song
  - slice key settings {baseKey : 'C-0', range {start:-2, stop: 10 }} // one octave
  - efx plugin system
