@@ -140,8 +140,8 @@ module.exports = function(grunt) {
 
 		uglify: {
 			options: {
-				beautify: true,
-				mangle: false,
+				beautify: false,
+				mangle: true,
 				preserveComments: true
 			},
 			my_target: {
@@ -151,7 +151,7 @@ module.exports = function(grunt) {
 						"./public/assets/js/waveform.js",
 						"./public/assets/js/app.js",
 						'./studio/assets/js/react-component-*.js',
-						"./public/bower_components/webcomponentsjs/webcomponents.js",
+						/*"./public/bower_components/webcomponentsjs/webcomponents.js",*/
 						//'public-dev/assets/js/*-controller.js',
 					]
 				}
@@ -172,13 +172,13 @@ module.exports = function(grunt) {
 			},
 			dist: {
 				src: [
+					"./public/bower_components/polymer/polymer.min.js",
 					"./public/bower_components/react/react-with-addons.min.js",
 					//"bower_components/react/JSXTransformer.js",
 					"./public/bower_components/jquery/dist/jquery.min.js",
 					"./public/bower_components/jquery.cookie/jquery.cookie.js",
 					"./public/bower_components/ciseaux/build/ciseaux.min.js",
 					'./studio/assets/js/app.minified.js',
-					"./public/bower_components/polymer/polymer.min.js",
 					'./studio/index.js',
 				],
 				dest: './studio/assets/js/app.min.js',
