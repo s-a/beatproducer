@@ -1,6 +1,6 @@
  - rename  private songs	
  - delete  private songs	
- - new sampler
+ - add new sampler
  - dialog preview and open samples
  - search & import song devices only
  - add tags to project configs (project property page) 
@@ -13,12 +13,13 @@
  - remove redundant code
  - rebuild bower.js
  - upload wave files to the https://s-a.github.io/sample-db/ project
+ - efx plugin system
  - efx per slice
  - write test suite
  - volume per note and step
  - Wav download -> https://github.com/mattdiamond/Recorderjs/blob/master/recorderWorker.js#L39
- - new device synthesizer
- - midi samples 
+ - new device (synthesizer)
+ - load open midi samples and map to sampler device
  - midi support
  - export to sound cloud
  - change basic auth to OAuth

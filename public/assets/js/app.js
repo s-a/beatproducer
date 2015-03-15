@@ -3,6 +3,13 @@
 	var sampleDbPath = "./../audio/sample-db/";
 
 	var AudioContext = window.AudioContext || window.webkitAudioContext;
+	var daAudioContext;
+	if (!AudioContext){
+		this.alert("Oh NO! Your Browser does not suppert AudioContext!?. Take a look at supported browser list to use this website. Maybe one day your browser will support new web technologies. o.O");
+		window.location = "https://github.com/s-a/beatproducer#browser-support";
+	} else {
+		daAudioContext = new AudioContext();
+	}
 
 	var onPlayBackIntervalInMilliseconds = 100;
 
@@ -108,7 +115,7 @@
 			if (_el){
 				this._el = _el;
 			}
-			this.audioContext = new AudioContext();
+			this.audioContext = daAudioContext;
 			this.bufSrc = null;
 			//  7  this._chored = false;
 			//    this._db = {};
@@ -730,13 +737,6 @@
 		};
 
 	/* ******************** SLICE ************************************************************  */
-		var daAudioContext;
-		if (!AudioContext){
-			this.alert("Oh NO! Your Browser does not suppert AudioContext!?. Take a look at supported browser list to use this website. Maybe one day your browser will support new web technologies. o.O");
-			window.location = "https://github.com/s-a/beatproducer#browser-support";
-		} else {
-			daAudioContext = new AudioContext();
-		}
 
 		var Slice = function(tape) {
 			var count = 1;
@@ -1211,7 +1211,6 @@
 							var $sender = $(sender);
 							var uid = $sender.data("user");
 							var name = $sender.data("name");
-							debugger;
 							var branchname = $sender.data("name");
 							var filename = "projects/" + uid + " " + name + ".json";
 
@@ -1222,6 +1221,13 @@
 							branch.read(filename, isBinary).then(function(contents) {
 								var project = JSON.parse(contents.content);
 								window.studio.init(project, function(config) {
+									if (pub){ // need new created project on save
+										window.gui.user = null;
+									} else { // can use current user an branch on save
+										window.gui.user = user;
+										window.gui.user.branch = branch;
+										window.gui.user.branchname = branchname;
+									}
 									window.currentPublicProjectName = "Discussion about " + uid + "'s " + name;
 								});
 							}, user.onError);

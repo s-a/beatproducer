@@ -47,6 +47,7 @@
         <!-- <i>Do not check this on public workstations!</i> -->
       </core-label>
       <br>
+      <hr>
       <paper-button affirmative dismissive>Cancel</paper-button>
       <paper-button affirmative default id="btn-login">Login</paper-button>
     </paper-action-dialog>
@@ -57,19 +58,19 @@
 
       <polymer-element name="x-open-public-project-link" attributes="name user" >
         <template>
-           <a  on-click="{{onOpenProjectButtonClick}}" href="javascript:void(0)" data-user="{{user}}" data-name="{{name}}" >{{name}}</a> by 
-           <a target="_blank" href="https://github.com/{{user}}/">{{user}}</a>
+           <a  on-click="{{onOpenProjectButtonClick}}" href="javascript:void(0)" data-user="{{user}}" data-name="{{name}}" >&#8220;{{name}}&#8221;</a> <sub>by 
+           <a target="_blank" href="https://github.com/{{user}}/">{{user}}</a></sub>
         </template>
       </polymer-element>
 
       <polymer-element name="x-open-private-project-link" attributes="name user" >
         <template>
-          <strong><a on-click="{{onOpenProjectButtonClick}}" href="javascript:void(0)" data-branchname={{name}} data-user="{{user}}" data-name="{{name}}" >Open {{name}}</a></strong> | 
-          <div style="display:inline-block;">
+          <a on-click="{{onOpenProjectButtonClick}}" href="javascript:void(0)" data-branchname={{name}} data-user="{{user}}" data-name="{{name}}" >&#8220;{{name}}&#8221;</a>
+          <sub style="display:inline-block;">
               <a href="#">Delete</a> - 
               <a href="#">Rename</a> - 
               <a href="#">Import-devices</a> 
-          </div>
+          </sub>
           <hr>
         </template>
       </polymer-element>
@@ -87,7 +88,7 @@
             <div><x-open-public-project-link name="{{name}}" user="{{user}}"></x-open-public-project-link></div>
           </template>
         </div>
-     
+      <br><hr>
       <paper-button affirmative dismissive>Cancel</paper-button>
     </paper-action-dialog>
 
@@ -144,7 +145,7 @@
     </core-scaffold>
     <div id="gui-loading-progress">
       <img align="center" src="assets/images/pre-loader2.gif" /><br>
-      <strong>@work...</strong>
+      <i>@work...</i>
     </div>
     <!-- SCRIPT START -->
     <script type="text/javascript" src="bower_components/react/react-with-addons.js"></script>
