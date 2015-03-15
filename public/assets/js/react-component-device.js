@@ -15,7 +15,7 @@
         var cls = "project-device project-device-container-" + r;
         return <div className={cls}><Device device={device} /></div>;
       }.bind(this));
-      return  <div className="device-element-inset project-rack">
+      return  <div className="project-rack">
                 {devices}
               </div> ;
     }

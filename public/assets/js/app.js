@@ -692,15 +692,15 @@
 				document.title = initialProjectConfig.name;
 			}
 
-				if (initialProjectConfig && self.gui.bpmSlider){
-					self.gui.bpmSlider.value = initialProjectConfig.bpm;
-				}
-//			window.addEventListener('polymer-ready', function (e) {
-//			});
+			if (initialProjectConfig && self.gui.bpmSlider){
+				self.gui.bpmSlider.value = initialProjectConfig.bpm;
+			}
+			//			window.addEventListener('polymer-ready', function (e) {
+			//			});
 
 			$('#gui-loading-progress').fadeIn("fast", function() {});
 			//$(function() {
-//			$("body").one("react-components-ready", function() {
+			//			$("body").one("react-components-ready", function() {
 				if (initialProjectConfig){
 					self.gui.alert("loading project");
 				}
@@ -711,7 +711,7 @@
 						self.project.open(initialProjectConfig, function(projectConfig) {
 							$('#gui-loading-progress').fadeOut("fast", function() {
 								if (projectConfig){
-									self.gui.alert("the song " + projectConfig.name+ " is ready on " + projectConfig.bpm + " beats per minute!");
+									self.gui.alert("&#8220;" + projectConfig.name+ "&#8221; is ready with " + projectConfig.bpm + " beats per minute!");
 								}
 								if (done){
 									$.proxy(done, self)(initialProjectConfig);
@@ -735,7 +735,7 @@
 			this.alert("Oh NO! Your Browser does not suppert AudioContext!?. Take a look at supported browser list to use this website. Maybe one day your browser will support new web technologies. o.O");
 			window.location = "https://github.com/s-a/beatproducer#browser-support";
 		} else {
-			daAudioContext = new AudioContext(); 
+			daAudioContext = new AudioContext();
 		}
 
 		var Slice = function(tape) {
@@ -1012,9 +1012,9 @@
 		GUI.prototype.onOpenProjectClick = function(el) {
 			$('#gui-loading-progress').fadeIn("fast", function() {});
 			var self = window.gui;
-			
+
 			var t = document.getElementById('public-project-list');
-			
+
 			if (!self.user){
 				if (!window.gui.credentials.uid || !window.gui.credentials.pwd){
 					new User().onError({"status":401, "message":'{"errors":[{"resource": "New Project","message":"No user login"}]}'});
@@ -1077,6 +1077,22 @@
 			}
 		};
 
+		GUI.prototype.onMyWorkspaceClick = function(el) {
+			if (!window.gui.credentials.uid || !window.gui.credentials.pwd){
+				new User().onError({"status":401, "message":'{"errors":[{"resource": "New Project","message":"No user login"}]}'});
+				return;
+			}
+			window.open("https://github.com/" + window.gui.credentials.uid + "/beatproducer-projects");
+		};
+
+		GUI.prototype.onDiscussSongClick = function(el) {
+			if (!window.currentPublicProjectName){
+				window.gui.alert("You can only discuss published songs. Open a public song now and give your two cents!");
+			} else {
+				window.open("https://github.com/s-a/beatproducer-projects/issues/new?title=" + window.currentPublicProjectName);
+			}
+		};
+
 		GUI.prototype.onNewProjectClick = function(el) {
 			var songname = $.trim(prompt ("Please give your new masterpice a unique name.","new-song")).toLowerCase().replace(/ /g, "-");
 			if (!window.gui.credentials.uid || !window.gui.credentials.pwd){
@@ -1129,7 +1145,7 @@
 				/*
 				}*/
 			} else {
-				window.gui.alert("Create or open a song to publish.");
+				window.gui.alert("Create a new song or open a song from your personal workspace to publish.");
 			}
 		};
 
@@ -1160,7 +1176,7 @@
 
 			document.addEventListener('DOMContentLoaded', function() {
 				window.Polymer('x-foo', {
-					
+
 				});
 
 				window.Polymer('x-open-project-link', {
@@ -1183,12 +1199,14 @@
 							branch.read(filename, isBinary).then(function(contents) {
 								var project = JSON.parse(contents.content);
 								document.querySelector('#project-open-dialog').toggle();
-								window.studio.init(project, function(config) {});
+								window.studio.init(project, function(config) {
+									window.currentPublicProjectName = "Discussion about " + uid + "'s " + name;
+								});
 							}, user.onError);
 						});
 					}
 				});
-				
+
 			});
 
 			$(function() {
@@ -1197,6 +1215,8 @@
 				$("#studio-button-new").click(self.onNewProjectClick);
 				$("#studio-button-open").click(self.onOpenProjectClick);
 				$("#studio-button-save").click(self.onSaveProjectClick);
+				$("#studio-button-my-workspace").click(self.onMyWorkspaceClick);
+				$("#studio-button-project-discuss").click(self.onDiscussSongClick);
 			});
 		};
 
@@ -1246,22 +1266,16 @@ var defaultProject = {
 };
 
 
-
-	 
-		
-	 
-
 window.studio = new window.boom.Studio();
 window.gui = new window.boom.GUI(window.studio);
 window.studio.gui = window.gui;
 
 
 
-//window.studio.init(null, function(config) {});
 $("body").on("react-components-ready", function() {
-	window.studio.init(defaultProject, function(config) {
-		/*window.studio.init(null, function(config) {
-
-		});*/
+	window.addEventListener('polymer-ready', function (e) {
+		//window.studio.init(null, function(config) {});
+		window.studio.init(defaultProject, function(config) {});
+		/*window.studio.init(null, function(config) {});*/
 	});
 });

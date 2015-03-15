@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Beatproducer</title>
+  <title>Beatproducer <!-- VERSION START -->0.0.0d<!-- VERSION END --></title>
   <meta name="mobile-web-app-capable" content="yes">
   <meta author="Stephan Ahlf">
+  <meta description="Beatproducer Studio version <!-- VERSION START -->0.0.0d<!-- VERSION END -->">
+
   <link rel="icon" sizes="192x192" href="/icon.png">
   <link rel="import" href="bower_components/core-menu/core-menu.html">
   <link rel="import" href="bower_components/core-item/core-item.html">
@@ -90,12 +92,13 @@
             <core-item id="studio-button-open" icon="folder-open" label="Open"></core-item>
             <core-item id="studio-button-save" icon="save" label="Save"></core-item>
             <core-item id="studio-button-publish" icon="backup" label="Publish"></core-item>
-            <core-item id="studio-button-download" icon="file-download" label="Download Wav File"></core-item>
+            <core-item id="studio-button-download" icon="file-download" label="Download Wav File" onclick="window.gui.alert('This function is still @work. It will be available soon. o.O')"></core-item>
+            <core-item id="studio-button-my-workspace" icon="settings" label="My Workspace"></core-item>
 
-          <core-label horizontal layout><br>Share<br></core-label>
-            <core-item id="studio-button-share-song" icon="open-in-new" label="Link"></core-item>
-            <core-item icon="social:share" label="Social Network" onclick="window.open('')"></core-item>
-            <!-- <core-item id="studio-button-favorite" icon="favorite-outline" label="Favorite Song"></core-item> -->
+          <core-label horizontal layout><br>Social<br></core-label>
+            <core-item icon="social:share" label="Share" onclick="window.gui.alert('This function is still @work. It will be available soon. o.O')"></core-item>
+            <core-item id="studio-button-project-discuss" icon="question-answer" label="Discuss this song"></core-item>
+            <core-item id="studio-button-share-song" icon="open-in-new" label="Share via Link" onclick="window.gui.alert('This function is still @work. It will be available soon. o.O')"></core-item>
 
           <core-label horizontal layout><br>Resources<br></core-label>
             <core-item icon="social:school" label="Getting Started" onclick="window.open('https://github.com/s-a/beatproducer/wiki')"></core-item>
@@ -103,7 +106,6 @@
             <core-item icon="bug-report" label="Submit a bug"  onclick="window.open('https://github.com/s-a/beatproducer/issues')"></core-item>
             <core-item icon="social:post-github" label="Source Code" onclick="window.open('https://github.com/s-a/beatproducer')"></core-item>
 
-          <core-label horizontal layout><br>Version <!-- VERSION START -->0.0.0d<!-- VERSION END --><br></core-label>
   
         </core-menu>
       </core-header-panel>
@@ -143,7 +145,7 @@
     <!-- <script type="text/javascript" src="assets/js/github.js"></script> -->
     <script type="text/javascript" src="assets/js/app.js"></script>
     <script type="text/jsx" src="assets/js/react-component-device.js"></script>
-    <script type="text/javascript" src="bower_components/webcomponentsjs/webcomponents.js"></script>
+<!--     <script type="text/javascript" src="bower_components/webcomponentsjs/webcomponents.js"></script> -->
     <!-- SCRIPT END -->
   </body>
 </html>
