@@ -1,12 +1,10 @@
  - write test suite
  - Sequencer editor using https://github.com/taye/interact.js
  - Slice/chop editor belowe device
- - add tags to project configs
+ - add tags to project configs (project property page) 
  - zoom waveform
  - full screen waveform
- - search & songs
  - search & import song devices
- - fork song
  - slice key settings {baseKey : 'C-0', range {start:-2, stop: 10 }} // one octave
  - efx plugin system
  - remove redundant code
@@ -18,6 +16,7 @@
  - new device synthesizer
  - midi samples 
  - midi support
-
-
+ - export to sound cloud
+ - change basic auth to OAuth
+ 
  https://github.com/gasman/jasmid 
