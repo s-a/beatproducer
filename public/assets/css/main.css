@@ -72,7 +72,7 @@ paper-slider::shadow #sliderKnobInner {
   padding-bottom: 0px;
 }
 
-#gui, .device-element-hidden{
+.device-element-hidden{
 	display: none;
 }
 

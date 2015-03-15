@@ -193,6 +193,7 @@
 				});
 			};
 			var processData = function  (arraybuffer) {
+				self._el.setState({name : self.name});
 				self.audioContext.decodeAudioData(arraybuffer, function(decodedData) {
 					//self.rawData = decodedData;
 					renderData(decodedData);
@@ -409,23 +410,26 @@
 		Device.prototype.open = function(url, done) {
 			var self = this;
 			if (!self._el){
+				if (!self.parentElement){
+					self.parentElement = self.project._el.getDOMNode();
+				}
 				self.render(function() {
 					self._el = this;
 					self.setLoadingProgressIndicator(true);
 					self.load(url, function() {
+						self.chopSlices();
 						if (done){
 							$.proxy(done, self)(self);
 						}
-						self.chopSlices();
 					});
 
 				});
 			} else {
 				self.load(url, function() {
+					self.chopSlices();
 					if (done){
 						$.proxy(done, self)(self);
 					}
-					self.chopSlices();
 				});
 				self.setLoadingProgressIndicator(true);
 			}
@@ -492,6 +496,10 @@
 			return $(this._el.getDOMNode());
 		};
 
+		Project.prototype.reset = function() {
+			this._el.setState({devices:[]});// render device;
+		};
+
 		Project.prototype.newDevice = function(deviceConfig, done) {
 			var self = this;
 			var device = new Device();
@@ -505,30 +513,30 @@
 			};
 			device.project = self;
 			childDevices.push(device);
-			self._el.setState({devices:childDevices});// render device;
-
-			if (deviceConfig.sample){
-				var shortName = deviceConfig.sample.split("/");
-				if (shortName.length > 1){
-					shortName.shift();
+			self._el.setState({devices:childDevices}, function() {
+				if (deviceConfig.sample){
+					var shortName = deviceConfig.sample.split("/");
+					if (shortName.length > 1){
+						shortName.shift();
+					}
+					shortName = shortName.join("//");
+					device.name = shortName;
+					device.filename = deviceConfig.sample;
+					device.open(sampleDbPath + deviceConfig.sample,  onComplete);
 				}
-				shortName = shortName.join("//");
-				device.name = shortName;
-				device.filename = deviceConfig.sample;
-				device._el.setState({name : shortName});
-				device.open(sampleDbPath + deviceConfig.sample,  onComplete);
-			}
 
 
-			device.patterns = [];
-			for (var p = 0; p < deviceConfig.patterns.length; p++) {
-				device.patterns.push(new Pattern(device, deviceConfig.patterns[p]));
-			}
+				device.patterns = [];
+				for (var p = 0; p < deviceConfig.patterns.length; p++) {
+					device.patterns.push(new Pattern(device, deviceConfig.patterns[p]));
+				}
 
-			if (deviceConfig.tape){
-				device.tape = deviceConfig.tape;
-				device.load(null, onComplete);
-			}
+				if (deviceConfig.tape){
+					device.tape = deviceConfig.tape;
+					device.load(null, onComplete);
+				}
+			});// render device;
+
 		};
 
 		Project.prototype.deviceContainer = function(index) {
@@ -537,16 +545,24 @@
 
 		Project.prototype.renderGUI = function(done) {
 			var self = this;
-			self.render(function() {
-				self._el = this;
-				if (done){
-					$.proxy(done, self)();
-				}
-			});
+			if (self.render){
+				self.render(function() {
+					self._el = this;
+					if (done){
+						$.proxy(done, self)();
+					}
+				});
+			} else {
+				done();
+			}
 		};
 
 		Project.prototype.open = function(projectConfig, done) {
 			var self = this;
+			if (!projectConfig || !projectConfig.devices){
+				done();
+				return;
+			}
 			if (!self.all){
 				self.all = projectConfig.devices.length;
 			}
@@ -615,12 +631,16 @@
 
 		PatternEditor.prototype.renderGUI = function(done) {
 			var self = this;
-			self.render(function() {
-				self._el = this;
-				if (done){
-					$.proxy(done, self)();
-				}
-			});
+			if (self.render){
+				self.render(function() {
+					self._el = this;
+					if (done){
+						$.proxy(done, self)();
+					}
+				});
+			} else {
+				done();
+			}
 		};
 
 		PatternEditor.prototype.open = function(device) {
@@ -647,32 +667,40 @@
 			self.project = new self.Project(parentElement);
 			self.project.studio = self;
 			self.project.renderGUI(function() {
-					self.patternEditor = new PatternEditor();
-					self.patternEditor.renderGUI(function(){
-						$('#gui').fadeIn("slow", function(){
-							done();
-						});
-					});
+				self.patternEditor = new PatternEditor();
+				self.patternEditor.renderGUI(function(){
+					//$('#gui').fadeIn("slow", function(){
+						done();
+					//});
+				});
 			});
+		};
+
+
+		Studio.prototype.reset = function(initialProjectConfig, done) {
+			if (this.project){
+				this.project.reset();
+			}
 		};
 
 		Studio.prototype.init = function(initialProjectConfig, done) {
 			var self = this;
+			self.reset();
 			var say = new this.Speech().say;
 
 			if (initialProjectConfig){
 				document.title = initialProjectConfig.name;
 			}
 
-			window.addEventListener('polymer-ready', function (e) {
-				if (initialProjectConfig){
+				if (initialProjectConfig && self.gui.bpmSlider){
 					self.gui.bpmSlider.value = initialProjectConfig.bpm;
 				}
-			});
+//			window.addEventListener('polymer-ready', function (e) {
+//			});
 
 			$('#gui-loading-progress').fadeIn("fast", function() {});
 			//$(function() {
-			$("body").one("react-components-ready", function() {
+//			$("body").one("react-components-ready", function() {
 				if (initialProjectConfig){
 					self.gui.alert("loading project");
 				}
@@ -698,7 +726,7 @@
 						});
 					}
 				});
-			});
+//			});
 		};
 
 	/* ******************** SLICE ************************************************************  */
@@ -906,7 +934,7 @@
 
 		User.prototype.saveSong = function(data, commitMessage, done) {
 			var self = this;
-			var filename = "projects/" + this.username + " " + this.branchname + ".json";
+			var filename = "projects/" + this.username + "_" + this.branchname + ".json";
 			this.branch.write(filename, data, commitMessage, false).then(function() {
 				window.gui.user = self;
 				if (done){
@@ -982,6 +1010,7 @@
 		};
 
 		GUI.prototype.onOpenProjectClick = function(el) {
+			$('#gui-loading-progress').fadeIn("fast", function() {});
 			var self = window.gui;
 			
 			var t = document.getElementById('public-project-list');
@@ -998,10 +1027,21 @@
 				var branch = repo.getBranch("master");
 
 				branch.contents('projects').then(function(contents) {
+					var projects = JSON.parse(contents);
+					var map = [];
+					for (var i = 0; i < projects.length; i++) {
+						var project = projects[i];
+						var tmp = project.name.split(" ");
+						var name = tmp.pop().split(".json")[0];
+						var user = tmp.join(" ");
+						map.push({"user":user, "name": name});
+					}
 					t.model = {
-						projects: JSON.parse(contents)
+						projects: map
 					};
-					document.querySelector('#project-open-dialog').toggle();
+					$('#gui-loading-progress').fadeOut("fast", function() {
+						document.querySelector('#project-open-dialog').toggle();
+					});
 				}, user.onError);
 			});
 
@@ -1084,19 +1124,38 @@
 						self.studio.project.bpm = bpm.value;
 					}
 				});
-				
+
 
 			});
 
 			document.addEventListener('DOMContentLoaded', function() {
-				Polymer('x-foo', {
+				window.Polymer('x-foo', {
 					
 				});
 
-				Polymer('x-foo2', {
+				window.Polymer('x-open-project-link', {
 					buttonClick: function(e, detail, sender) {
-					 
-		//						console.log(sender.templateInstance.model.user.name);
+						var $sender = $(sender);
+						var uid = $sender.data("user");
+						var name = $sender.data("name");
+
+						var filename = "projects/" + uid + " " + name + ".json";
+
+
+						var user = new window.boom.User();
+
+						user.login(window.gui.credentials.uid, window.gui.credentials.pwd, function(){
+
+							var repo = user.github.getRepo("s-a", "beatproducer-projects");
+							var branch = repo.getBranch("master");
+
+							var isBinary = false;
+							branch.read(filename, isBinary).then(function(contents) {
+								var project = JSON.parse(contents.content);
+								document.querySelector('#project-open-dialog').toggle();
+								window.studio.init(project, function(config) {});
+							}, user.onError);
+						});
 					}
 				});
 				
@@ -1155,8 +1214,23 @@ var defaultProject = {
 	]
 };
 
-var studio = new window.boom.Studio();
-var gui = window.gui = new window.boom.GUI(studio);
-studio.gui = gui;
 
-studio.init(defaultProject, function(config) {});
+
+	 
+		
+	 
+
+window.studio = new window.boom.Studio();
+window.gui = new window.boom.GUI(window.studio);
+window.studio.gui = window.gui;
+
+
+
+//window.studio.init(null, function(config) {});
+$("body").on("react-components-ready", function() {
+	window.studio.init(defaultProject, function(config) {
+		/*window.studio.init(null, function(config) {
+
+		});*/
+	});
+});

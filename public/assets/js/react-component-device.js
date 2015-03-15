@@ -62,6 +62,7 @@
         device.project.studio.patternEditor.open(device);
     },
     getInitialState: function() {
+      debugger;
       if (this.props.device){
         var device = this.props.device;
         device._el = this;
