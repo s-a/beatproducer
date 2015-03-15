@@ -2,22 +2,21 @@
   "author": "Stephan Ahlf",
   "copyright": "ALL RIGHTS RESERVED",
   "preferGlobal": false,
-  "name": "BOOM",
-  "description": "BOOM",
-  "repository": "git@bitbucket.org:sa77/boom.git",
-  "version": "0.1.132",
+  "name": "beatproducer-studio",
+  "description": "a beat producer environment for browsers",
+  "repository": "https://github.com/s-a/beatproducer.git",
+  "version": "0.1.134",
   "scripts": {
-    "test": "mocha"
+    "test": "node ./test/test.js"
   },
   "engines": {
     "node": ">=0.10.33"
   },
   "dependencies": {},
   "devDependencies": {
-    "express": "",
+    "load-grunt-tasks": "",
     "grunt": "0.4.4",
-    "grunt-bower-postinst": "0.2.1",
-    "grunt-bower-task ": "0.3.4",
+    "express": "",
     "grunt-bump": "0.0.13",
     "grunt-contrib-clean": "0.5.0",
     "grunt-contrib-concat": "0.3.0",
@@ -27,9 +26,7 @@
     "grunt-contrib-jshint": "0.9.2",
     "grunt-contrib-uglify": "0.2.7",
     "grunt-file-append": "0.0.2",
-    "grunt-npm-install": "0.1.0",
     "grunt-react": "^0.10.0",
-    "grunt-remove": "0.1.0",
     "grunt-string-replace": "0.2.7",
     "grunt-vulcanize": "^0.6.4"
   }

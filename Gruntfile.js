@@ -27,7 +27,7 @@ module.exports = function(grunt) {
 				commit: false,
 				commitMessage: 'Release v%VERSION%',
 				commitFiles: ['package.json', 'bower.json'], // '-a' for all files
-				createTag: true,
+				createTag: false,
 				tagName: 'v%VERSION%',
 				tagMessage: 'Version %VERSION%',
 				push: false,
@@ -183,26 +183,12 @@ module.exports = function(grunt) {
 				],
 				dest: './studio/assets/js/app.min.js',
 			},
-		},
-
+		}
 	});
 
 
-	// Production Build Tools
-	grunt.loadNpmTasks('grunt-react');
-	grunt.loadNpmTasks('grunt-vulcanize');
-	grunt.loadNpmTasks('grunt-bump');
-	grunt.loadNpmTasks('grunt-npm-install');
-	grunt.loadNpmTasks('grunt-contrib-cssmin');
-	grunt.loadNpmTasks('grunt-string-replace');
-	grunt.loadNpmTasks('grunt-remove');
-	grunt.loadNpmTasks('grunt-contrib-concat');
-	grunt.loadNpmTasks('grunt-contrib-clean');
-	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-file-append');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-htmlmin');
+	// Production Build Tools from package.json
+	require('load-grunt-tasks')(grunt);
 	
 	// Default Production Build task(s).
 	grunt.registerTask(

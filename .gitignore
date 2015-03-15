@@ -1,6 +1,6 @@
 node_modules
 bower_components
-.log
+*.log
 *.sublime-project
 *.sublime-workspace
 credentials.js
