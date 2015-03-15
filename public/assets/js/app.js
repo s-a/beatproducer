@@ -906,7 +906,7 @@
 
 		User.prototype.saveSong = function(data, commitMessage, done) {
 			var self = this;
-			var filename = "projects/" + this.username + '_' + this.branchname + ".json";
+			var filename = "projects/" + this.username + " " + this.branchname + ".json";
 			this.branch.write(filename, data, commitMessage, false).then(function() {
 				window.gui.user = self;
 				if (done){
@@ -981,8 +981,38 @@
 			document.querySelector('#login-dialog').toggle();
 		};
 
+		GUI.prototype.onOpenProjectClick = function(el) {
+			var self = window.gui;
+			
+			var t = document.getElementById('public-project-list');
+			
+			if (!self.user){
+				if (!window.gui.credentials.uid || !window.gui.credentials.pwd){
+					new User().onError({"status":401, "message":'{"errors":[{"resource": "New Project","message":"No user login"}]}'});
+					return;
+				}
+			}
+			var user = new window.boom.User();
+			user.login(window.gui.credentials.uid, window.gui.credentials.pwd, function(){
+				var repo = user.github.getRepo("s-a", "beatproducer-projects");
+				var branch = repo.getBranch("master");
+
+				branch.contents('projects').then(function(contents) {
+					t.model = {
+						projects: JSON.parse(contents)
+					};
+					document.querySelector('#project-open-dialog').toggle();
+				}, user.onError);
+			});
+
+		};
+
 		GUI.prototype.onNewProjectClick = function(el) {
-			var songname = $.trim(prompt ("Please name your new masterpice","New Song"));
+			var songname = $.trim(prompt ("Please give your new masterpice a unique name.","new-song")).toLowerCase().replace(/ /g, "-");
+			if (!window.gui.credentials.uid || !window.gui.credentials.pwd){
+				new User().onError({"status":401, "message":'{"errors":[{"resource": "New Project","message":"No user login"}]}'});
+				return;
+			}
 			if (songname === ""){
 				window.gui.alert ("Please enter a songname!");
 			} else {
@@ -1033,7 +1063,7 @@
 			}
 		};
 
-		GUI.prototype.loginAction = function(a,b,c,d) {
+		GUI.prototype.loginAction = function() {
 			window.gui.credentials.uid = this.parentElement.querySelector(".input-login-uid").value;
 			window.gui.credentials.pwd = this.parentElement.querySelector(".input-login-pwd").value;
 			var chk = $("#remember-login-password").get(0);
@@ -1054,12 +1084,29 @@
 						self.studio.project.bpm = bpm.value;
 					}
 				});
+				
+
+			});
+
+			document.addEventListener('DOMContentLoaded', function() {
+				Polymer('x-foo', {
+					
+				});
+
+				Polymer('x-foo2', {
+					buttonClick: function(e, detail, sender) {
+					 
+		//						console.log(sender.templateInstance.model.user.name);
+					}
+				});
+				
 			});
 
 			$(function() {
 				$("#studio-button-publish").click(self.onPublishClick);
 				$("#studio-button-login").click(self.onLoginClick);
 				$("#studio-button-new").click(self.onNewProjectClick);
+				$("#studio-button-open").click(self.onOpenProjectClick);
 			});
 		};
 
