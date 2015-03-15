@@ -726,7 +726,7 @@
 						});
 					}
 				});
-//			});
+			//			});
 		};
 
 	/* ******************** SLICE ************************************************************  */
@@ -934,7 +934,7 @@
 
 		User.prototype.saveSong = function(data, commitMessage, done) {
 			var self = this;
-			var filename = "projects/" + this.username + "_" + this.branchname + ".json";
+			var filename = "projects/" + this.username + " " + this.branchname + ".json";
 			this.branch.write(filename, data, commitMessage, false).then(function() {
 				window.gui.user = self;
 				if (done){
@@ -1010,10 +1010,8 @@
 		};
 
 		GUI.prototype.onOpenProjectClick = function(el) {
-			$('#gui-loading-progress').fadeIn("fast", function() {});
 			var self = window.gui;
 
-			var t = document.getElementById('public-project-list');
 
 			if (!self.user){
 				if (!window.gui.credentials.uid || !window.gui.credentials.pwd){
@@ -1021,28 +1019,57 @@
 					return;
 				}
 			}
-			var user = new window.boom.User();
-			user.login(window.gui.credentials.uid, window.gui.credentials.pwd, function(){
+
+			var mapDirectoryContents = function  (contents) {
+				var projects = JSON.parse(contents);
+				var map = [];
+				for (var i = 0; i < projects.length; i++) {
+					var project = projects[i];
+					var tmp = project.name.split(" ");
+					var name = tmp.pop().split(".json")[0];
+					var user = tmp.join(" ");
+					map.push({"user":user, "name": name});
+				}
+				return map;
+			};
+
+			var fetchDirectoryContents = function(user, done) {
 				var repo = user.github.getRepo("s-a", "beatproducer-projects");
 				var branch = repo.getBranch("master");
 
-				branch.contents('projects').then(function(contents) {
-					var projects = JSON.parse(contents);
-					var map = [];
-					for (var i = 0; i < projects.length; i++) {
-						var project = projects[i];
-						var tmp = project.name.split(" ");
-						var name = tmp.pop().split(".json")[0];
-						var user = tmp.join(" ");
-						map.push({"user":user, "name": name});
-					}
-					t.model = {
-						projects: map
+				branch.contents('projects').then(done, user.onError);
+			};
+
+			$('#gui-loading-progress').fadeIn("fast", function() {});
+
+			var user = new window.boom.User();
+			user.login(window.gui.credentials.uid, window.gui.credentials.pwd, function(){
+				
+				fetchDirectoryContents(user, function(contents) {
+					var projects = mapDirectoryContents(contents);
+					var pub = document.getElementById('public-project-list');
+					pub.model = {
+						projects: projects
 					};
-					$('#gui-loading-progress').fadeOut("fast", function() {
-						document.querySelector('#project-open-dialog').toggle();
+					var repo2 = user.github.getRepo(window.gui.credentials.uid, "beatproducer-projects");
+					repo2.getBranches().then(function(branches) {
+						var privateSongs = [];
+						for (var i = 0; i < branches.length; i++) {
+							var branch = branches[i].pop();
+							if (branch !== "master"){
+								privateSongs.push({name:branch, user:window.gui.credentials.uid});
+							}
+						}
+						var priv = document.getElementById('private-project-list');
+						priv.model = {
+							projects: privateSongs
+						};
+
+						$('#gui-loading-progress').fadeOut("fast", function() {
+							document.querySelector('#project-open-dialog').toggle();
+						});
 					});
-				}, user.onError);
+				})
 			});
 
 		};
@@ -1107,7 +1134,7 @@
 					user.login(window.gui.credentials.uid, window.gui.credentials.pwd, function(){
 						user.newSong(songname, function() {
 							var msg = 'created a new song. yeah!';
-							var data = studio.project.configString();
+							var data = window.gui.studio.project.configString();
 							user.saveSong(data, msg, function() {
 								window.gui.user = user;
 								$('#gui-loading-progress').fadeOut("fast", function() {
@@ -1170,40 +1197,46 @@
 						self.studio.project.bpm = bpm.value;
 					}
 				});
-
-
 			});
 
 			document.addEventListener('DOMContentLoaded', function() {
 				window.Polymer('x-foo', {
-
 				});
 
-				window.Polymer('x-open-project-link', {
-					buttonClick: function(e, detail, sender) {
-						var $sender = $(sender);
-						var uid = $sender.data("user");
-						var name = $sender.data("name");
+				var openProjectByButtonClickFromChannel = function(sender, pub){
+					var user = new window.boom.User();
+					user.login(window.gui.credentials.uid, window.gui.credentials.pwd, function(){
+						document.querySelector('#project-open-dialog').toggle();
+						$('#gui-loading-progress').fadeIn("fast", function() {
+							var $sender = $(sender);
+							var uid = $sender.data("user");
+							var name = $sender.data("name");
+							debugger;
+							var branchname = $sender.data("name");
+							var filename = "projects/" + uid + " " + name + ".json";
 
-						var filename = "projects/" + uid + " " + name + ".json";
-
-
-						var user = new window.boom.User();
-
-						user.login(window.gui.credentials.uid, window.gui.credentials.pwd, function(){
-
-							var repo = user.github.getRepo("s-a", "beatproducer-projects");
-							var branch = repo.getBranch("master");
+							var repo = user.github.getRepo(pub ? "s-a" : window.gui.credentials.uid, "beatproducer-projects");
+							var branch = repo.getBranch(pub ? "master" : branchname);
 
 							var isBinary = false;
 							branch.read(filename, isBinary).then(function(contents) {
 								var project = JSON.parse(contents.content);
-								document.querySelector('#project-open-dialog').toggle();
 								window.studio.init(project, function(config) {
 									window.currentPublicProjectName = "Discussion about " + uid + "'s " + name;
 								});
 							}, user.onError);
 						});
+					});
+				};
+
+				window.Polymer('x-open-public-project-link', {
+					onOpenProjectButtonClick: function(e, detail, sender) {
+						openProjectByButtonClickFromChannel(sender, true);
+					}
+				});
+				window.Polymer('x-open-private-project-link', {
+					onOpenProjectButtonClick: function(e, detail, sender) {
+						openProjectByButtonClickFromChannel(sender,false);
 					}
 				});
 

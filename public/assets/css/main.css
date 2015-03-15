@@ -223,3 +223,12 @@ html /deep/ [layout][vertical] #mainContainer{
   background-color: #0D0D0D;
   color: #F2F2F2;
 }
+
+li{
+  list-style-type: none;
+}
+
+li {
+  margin-left: 0;
+}
+

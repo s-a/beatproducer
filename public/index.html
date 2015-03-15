@@ -55,26 +55,39 @@
       <h2>Open Project</h2>
 
 
-      <polymer-element name="x-open-project-link" attributes="name user" >
+      <polymer-element name="x-open-public-project-link" attributes="name user" >
         <template>
-           <a  on-click="{{buttonClick}}" href="javascript:void(0)" data-user="{{user}}" data-name="{{name}}" >{{name}}</a> by 
+           <a  on-click="{{onOpenProjectButtonClick}}" href="javascript:void(0)" data-user="{{user}}" data-name="{{name}}" >{{name}}</a> by 
            <a target="_blank" href="https://github.com/{{user}}/">{{user}}</a>
         </template>
       </polymer-element>
 
-      <polymer-element name="x-foo">
-        <h5>My projects</h5>
-
-        <h5>Public projects</h5>
-        <ul>
-          <template id="public-project-list" repeat="{{ projects }}">
-            <li><x-open-project-link name="{{name}}" user="{{user}}"></x-foo2></li>
-          </template>
-        </ul>
+      <polymer-element name="x-open-private-project-link" attributes="name user" >
+        <template>
+          <strong><a on-click="{{onOpenProjectButtonClick}}" href="javascript:void(0)" data-branchname={{name}} data-user="{{user}}" data-name="{{name}}" >Open {{name}}</a></strong> | 
+          <div style="display:inline-block;">
+              <a href="#">Delete</a> - 
+              <a href="#">Rename</a> - 
+              <a href="#">Import-devices</a> 
+          </div>
+          <hr>
+        </template>
       </polymer-element>
+ 
+        <h2>My projects</h2>
+        <div>
+          <template id="private-project-list" repeat="{{ projects }}">
+            <div><x-open-private-project-link name="{{name}}" user="{{user}}"></x-open-private-project-link></div>
+          </template>
+        </div>
 
-      <x-foo></x-foo>
-
+        <h2>Public projects</h2>
+        <div>
+          <template id="public-project-list" repeat="{{ projects }}">
+            <div><x-open-public-project-link name="{{name}}" user="{{user}}"></x-open-public-project-link></div>
+          </template>
+        </div>
+     
       <paper-button affirmative dismissive>Cancel</paper-button>
     </paper-action-dialog>
 
@@ -131,7 +144,7 @@
     </core-scaffold>
     <div id="gui-loading-progress">
       <img align="center" src="assets/images/pre-loader2.gif" /><br>
-      <strong>Loading...</strong>
+      <strong>@work...</strong>
     </div>
     <!-- SCRIPT START -->
     <script type="text/javascript" src="bower_components/react/react-with-addons.js"></script>
