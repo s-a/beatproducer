@@ -1047,6 +1047,36 @@
 
 		};
 
+		GUI.prototype.onSaveProjectClick = function(el) {
+			if (!window.gui.credentials.uid || !window.gui.credentials.pwd){
+				new User().onError({"status":401, "message":'{"errors":[{"resource": "New Project","message":"No user login"}]}'});
+				return;
+			}
+
+			if (!window.gui.user){
+				window.gui.onNewProjectClick();
+				return;
+			}
+
+			var songname = window.gui.user.branchname;
+			if (songname === ""){
+				window.gui.onNewProjectClick();
+				return;
+			} else {
+				$('#gui-loading-progress').fadeIn("fast", function() {
+					var user = window.gui.user;
+					var msg = 'Just improved my cool song. Boom!';
+					var data = window.gui.studio.project.configString();
+					user.saveSong(data, msg, function() {
+						window.gui.user = user;
+						$('#gui-loading-progress').fadeOut("fast", function() {
+							window.gui.alert ("Saved " + songname);
+						});
+					});
+				});
+			}
+		};
+
 		GUI.prototype.onNewProjectClick = function(el) {
 			var songname = $.trim(prompt ("Please give your new masterpice a unique name.","new-song")).toLowerCase().replace(/ /g, "-");
 			if (!window.gui.credentials.uid || !window.gui.credentials.pwd){
@@ -1166,6 +1196,7 @@
 				$("#studio-button-login").click(self.onLoginClick);
 				$("#studio-button-new").click(self.onNewProjectClick);
 				$("#studio-button-open").click(self.onOpenProjectClick);
+				$("#studio-button-save").click(self.onSaveProjectClick);
 			});
 		};
 
