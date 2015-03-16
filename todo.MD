@@ -1,6 +1,9 @@
+ - add a css postprocessor to grunt build job
+ - add new sampler
+ - delete  sample	
+ - rename  sample	
  - rename  private songs	
  - delete  private songs	
- - add new sampler
  - dialog preview and open samples
  - search & import song devices only
  - add tags to project configs (project property page) 
