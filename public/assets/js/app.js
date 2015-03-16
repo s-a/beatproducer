@@ -1305,45 +1305,16 @@ var defaultProject = {
 
 
 
-var test = function  () {
-	if (navigator.userAgent.indexOf('SlimerJS') !== -1) {
-
-		describe("simple test", function() {
-		    it("should test", function(){
-				assert(true, "1!==1");
-		    });
-		});
-
-		describe("Studio", function() {
-		    it("should should load project", function(done){
-	    		window.studio.init(defaultProject, function(config) { 
-					assert(window.studio.project._el.state.devices.length === 1, "1!==1");
-	    			done(); 
-	    		});
-
-		    });
-		});
-		var runner = window.mocha.run();
-	} else {
-		if (document.location.hostname === "localhost"){
-			window.studio.init(defaultProject);
-		}
-	}
-};
-
-
-window.addEventListener('polymer-ready', function (e) {
-	console.log("polymer-ready");
-});
 
 window.studio = new window.boom.Studio();
 window.gui = new window.boom.GUI(window.studio);
 window.studio.gui = window.gui;
 
 $("body").on("react-components-ready", function() {
-	console.log("react-components-ready");
+	window.studio.init(null, function(config) { 
+		window.boomTestSuite();
+	});
 	//window.studio.init(null, function(config) {});
-	window.studio.init(null, function(config) { test(); });
 	/*window.studio.init(null, function(config) {});*/
 });
 
