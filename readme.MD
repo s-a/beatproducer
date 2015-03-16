@@ -13,7 +13,7 @@ This is the famous [beatproducer studio](https://s-a.github.io/beatproducer/stud
 A (experimental) beat producer environment based on the web audio API.  
 
 ## Browser Support
-Except Microsoft Internet Explorer [the most major browsers](http://caniuse.com/#search=Web%20Audio%20API) will be supported. Currently development is in progress so in fact it is for shure runnin in Goolge Chrome for now.  
+Except Microsoft Internet Explorer [the most major browsers](http://caniuse.com/#search=Web%20Audio%20API) will be supported. Currently development is in progress so in fact it is for shure runnin in Goolge Chrome for now. So far Chrome has many fetures buidl in as native functionality so you will get the most perfomance with this browser.  
 
 ## Samples
 The beatproducer studio is using the [Open Sample DB](https://github.com/s-a/sample-db) repository. You are welcome to contribute here too. Take look at current [loops and samples online](https://s-a.github.io/sample-db/).
