@@ -208,6 +208,10 @@
 			};
 
 			if (typeof url === 'string'){
+				this.name = url.split("/").pop();
+				if (!this.filename){
+					this.filename = url.replace(sampleDbPath, "");
+				}
 				this.get(url, function(arraybuffer) {
 					processData(arraybuffer);
 				});
@@ -466,21 +470,25 @@
 			var self = this;
 			var slices = function() {
 				var result = [];
-				for (var i = 0; i < self.markers.length; i++) {
-					result.push(self.markers[i].seconds);
+				if (self.markers){
+					for (var i = 0; i < self.markers.length; i++) {
+						result.push(self.markers[i].seconds);
+					}
 				}
 				return result;
 			};
 
 			var patterns = function() {
 				var result = [];
-				for (var i = 0; i < self.patterns.length; i++) {
-					var pattern = self.patterns[i];
-					result.push({
-						id : pattern.id,
-						bars : pattern.bars,
-						sequence : pattern.sequence
-					});
+				if (self.patterns){
+					for (var i = 0; i < self.patterns.length; i++) {
+						var pattern = self.patterns[i];
+						result.push({
+							id : pattern.id,
+							bars : pattern.bars,
+							sequence : pattern.sequence
+						});
+					}
 				}
 				return result;
 			};
@@ -596,9 +604,11 @@
 			};
 
 			for (var i = 0; i < this._el.state.devices.length; i++) {
-				result.devices.push(this._el.state.devices[i].config());
+				var sampler = this._el.state.devices[i].config();
+				if (sampler.sample){
+					result.devices.push();
+				}
 			}
-
 			return result;
 		};
 
@@ -1145,6 +1155,13 @@
 			}
 		};
 
+		GUI.prototype.onNewSamplerClick = function(el) {
+			var self = window.gui;
+			var arr = self.studio.project._el.state.devices;
+			arr.push(new Device());
+			self.studio.project._el.setState({devices:arr});
+		};
+		
 		GUI.prototype.onPublishClick = function(el) {
 			var self = window.gui;
 			if (self.user && self.user.fork && self.user.branch){
@@ -1248,6 +1265,7 @@
 			});
 
 			$(function() {
+				$("#studio-button-new-sampler").click(self.onNewSamplerClick);
 				$("#studio-button-publish").click(self.onPublishClick);
 				$("#studio-button-login").click(self.onLoginClick);
 				$("#studio-button-new").click(self.onNewProjectClick);
@@ -1317,4 +1335,3 @@ $("body").on("react-components-ready", function() {
 	//window.studio.init(null, function(config) {});
 	/*window.studio.init(null, function(config) {});*/
 });
-

@@ -68,7 +68,7 @@
       }
       return {
         device: device,
-        name: "X",
+        name: "New Sampler",
         currentTime: 0
       };
     },

@@ -1,7 +1,5 @@
- - add a css postprocessor to grunt build job
- - add new sampler
- - delete  sample	
- - rename  sample	
+ - delete  sampler	
+ - rename  sampler	
  - rename  private songs	
  - delete  private songs	
  - dialog preview and open samples
@@ -10,6 +8,7 @@
  - Sequencer editor using https://github.com/taye/interact.js
  - Slice/chop editor belowe device
  - zoom waveform
+ - add a css postprocessor to grunt build job
  - full screen waveform
  - slice key settings {baseKey : 'C-0', range {start:-2, stop: 10 }} // one octave
  - efx plugin system
