@@ -1,11 +1,12 @@
 {
-  "name": "boom",
+  "name": "beatproducer-studio",
   "version": "0.1.134",
   "authors": [
     "s-a <stephan.ahlf@googlemail.com>"
   ],
-  "description": "nosaer",
-  "license": "ALL RIGHTS RESERVED",
+  "description": "a beat producer environment for browsers",
+  "repository": "https://github.com/s-a/beatproducer.git",
+  "license": "MIT",
   "private": true,
   "ignore": [
     "**/.*",
@@ -23,5 +24,8 @@
     "jquery-ui": "~1.11.3",
     "react": "~0.12.2",
     "link.js": ""
+  },
+  "devDependencies": {
+    "mocha": ""
   }
 }

@@ -1,0 +1,6 @@
+language: node_js
+node_js:
+  - "0.10"
+before_script:
+  - forever start server/server.js
+  - sleep 3 # give Web server some time to bind to sockets, etc

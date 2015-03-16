@@ -1,19 +1,22 @@
 {
   "author": "Stephan Ahlf",
   "copyright": "ALL RIGHTS RESERVED",
+  "license": "MIT",
   "preferGlobal": false,
   "name": "beatproducer-studio",
   "description": "a beat producer environment for browsers",
   "repository": "https://github.com/s-a/beatproducer.git",
   "version": "0.1.134",
   "scripts": {
-    "test": "node ./test/test.js"
+    "test": "grunt test"
   },
   "engines": {
     "node": ">=0.10.33"
   },
   "dependencies": {},
   "devDependencies": {
+    "forever":"",
+    "grunt-mocha-slimer":"",
     "load-grunt-tasks": "",
     "grunt": "0.4.4",
     "express": "",

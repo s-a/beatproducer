@@ -1189,6 +1189,7 @@
 		GUI.prototype.initEventListeners = function() {
 			var self = this;
 			window.addEventListener('polymer-ready', function (e) {
+				console.log("polymer-ready");
 				////$("#gui").get(0).responsiveWidth = "1920px";
 				window.Polymer.addEventListener(document.getElementById('btn-login'), 'tap', self.loginAction);
 				self.bpmSlider = document.querySelector('#bpm');
@@ -1305,16 +1306,44 @@ var defaultProject = {
 };
 
 
+
+var test = function  () {
+	if (navigator.userAgent.indexOf('SlimerJS') !== -1) {
+		// FIXME: polymer-ready event does not trigger?
+		/*
+		window.beforeEach(function(){
+			var _isPolymerReady = false;
+			window.addEventListener('polymer-ready', function(e) {
+			  _isPolymerReady = true;
+			});
+
+			var container = document.createElement("div");
+			container.innerHTML = '';
+			document.body.appendChild(container);
+
+			window.waitsFor(
+				function() {return _isPolymerReady;},
+			  	"polymer-ready",
+			  	5000
+			);
+		});
+		*/
+		describe("simple test", function() {
+		    it("should test", function(){
+				assert(true, "1!==1");
+		    });
+		});
+		var runner = window.mocha.run();
+	}
+};
+
 window.studio = new window.boom.Studio();
 window.gui = new window.boom.GUI(window.studio);
 window.studio.gui = window.gui;
 
-
-
 $("body").on("react-components-ready", function() {
-	window.addEventListener('polymer-ready', function (e) {
-		//window.studio.init(null, function(config) {});
-		window.studio.init(defaultProject, function(config) {});
-		/*window.studio.init(null, function(config) {});*/
-	});
+	console.log("react-components-ready");
+	//window.studio.init(null, function(config) {});
+	window.studio.init(defaultProject, function(config) { test(); });
+	/*window.studio.init(null, function(config) {});*/
 });

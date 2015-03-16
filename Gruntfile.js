@@ -183,6 +183,24 @@ module.exports = function(grunt) {
 				],
 				dest: './studio/assets/js/app.min.js',
 			},
+		},
+	    mocha_slimer: {
+	        default: {
+	            options: {
+	                ui: 'bdd',
+	                reporter: 'Spec',
+	                //grep: 'some keyword',
+	                // SlimerJS timeout
+	                timeout: 1000 * 60 * 15,
+	                // set to false and call it later for async tests (AMD etc)
+	                run: false,
+	                // run SlimerJS via 'xvfb-run': for true headless testing
+	                // must be true on Travis-CI, use: (process.env.TRAVIS === 'true')
+	                xvfb: (process.env.TRAVIS === 'true'),
+	                // pass http urls (use grunt-contrib-connect etc)
+	                urls: ["http://localhost:3000/public"]
+	            }
+		  	}
 		}
 	});
 
@@ -213,4 +231,5 @@ module.exports = function(grunt) {
 	);
 
 	grunt.registerTask("build", ['default']);
+	grunt.registerTask("test", ['mocha_slimer']);
 };

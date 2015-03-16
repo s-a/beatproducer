@@ -138,6 +138,9 @@
 
 
 
+      <div id="mocha"><p><a href=".">Index</a></p></div>
+      <div id="messages"></div>
+      <div id="fixtures"></div>
       <div id="pattern-editor"></div>
       <div id="content" class="boom-sound-player"></div>
 
@@ -148,6 +151,9 @@
       <i>@work...</i>
     </div>
     <!-- SCRIPT START -->
+    <script type="text/javascript" src="bower_components/mocha/mocha.js"></script>
+    <script>mocha.setup('bdd')</script>
+    <script>function assert(expr, msg) {if (!expr) throw new Error(msg || 'failed');}</script>
     <script type="text/javascript" src="bower_components/react/react-with-addons.js"></script>
     <script type="text/javascript" src="bower_components/react/JSXTransformer.js"></script>
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -159,7 +165,7 @@
     <!-- <script type="text/javascript" src="assets/js/github.js"></script> -->
     <script type="text/javascript" src="assets/js/app.js"></script>
     <script type="text/jsx" src="assets/js/react-component-device.js"></script>
-<!--     <script type="text/javascript" src="bower_components/webcomponentsjs/webcomponents.js"></script> -->
+    <!--     <script type="text/javascript" src="bower_components/webcomponentsjs/webcomponents.js"></script> -->
     <!-- SCRIPT END -->
   </body>
 </html>

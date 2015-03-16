@@ -243,8 +243,9 @@
 
 
 
-
   $("body").trigger("react-components-ready");
+
+
   
 
 })(window.jQuery, window.boom, window.boom.Device, window.boom.Project, window.boom.PatternEditor);
