@@ -985,7 +985,7 @@
 				$(".input-login-uid:first").val(this.credentials.uid);
 				$(".input-login-pwd:first").val(this.credentials.pwd);
 
-
+				this.initEventListeners();
 			}
 
 
@@ -1185,16 +1185,20 @@
 		};
 
 		GUI.prototype.initEventListeners = function() {
-
 			var self = this;
-			////$("#gui").get(0).responsiveWidth = "1920px";
-			window.Polymer.addEventListener(document.getElementById('btn-login'), 'tap', self.loginAction);
-			self.bpmSlider = document.querySelector('#bpm');
-			self.bpmSlider.addEventListener('core-change', function() {
-				if (self.studio.project){
-					//self.studio.project.bpm = bpm.value;
-				}
+			window.addEventListener('polymer-ready', function (e) {
+				console.log("polymer-ready");
+				////$("#gui").get(0).responsiveWidth = "1920px";
+				window.Polymer.addEventListener(document.getElementById('btn-login'), 'tap', self.loginAction);
+				self.bpmSlider = document.querySelector('#bpm');
+				self.bpmSlider.addEventListener('core-change', function() {
+					if (self.studio.project){
+						self.studio.project.bpm = self.bpmSlider.value;
+					}
+				});
 			});
+
+			document.addEventListener('DOMContentLoaded', function() {
 				window.Polymer('x-foo', {
 				});
 
@@ -1241,8 +1245,8 @@
 					}
 				});
 
+			});
 
-/*
 			$(function() {
 				$("#studio-button-publish").click(self.onPublishClick);
 				$("#studio-button-login").click(self.onLoginClick);
@@ -1251,7 +1255,7 @@
 				$("#studio-button-save").click(self.onSaveProjectClick);
 				$("#studio-button-my-workspace").click(self.onMyWorkspaceClick);
 				$("#studio-button-project-discuss").click(self.onDiscussSongClick);
-			});*/
+			});
 		};
 
 	/* ******************** PUBLIC ************************************************************  */
@@ -1303,50 +1307,43 @@ var defaultProject = {
 
 var test = function  () {
 	if (navigator.userAgent.indexOf('SlimerJS') !== -1) {
-		// FIXME: polymer-ready event does not trigger?
 
-/*		window.beforeEach(function(){
-			var _isPolymerReady = false;
-			window.addEventListener('polymer-ready', function(e) {
-			  _isPolymerReady = true;
-			});
-
-			var container = document.createElement("div");
-			container.innerHTML = '';
-			document.body.appendChild(container);
-
-			window.waitsFor(
-				function() {return _isPolymerReady;},
-			  	"polymer-ready",
-			  	5000
-			);
-		});
-
-*/		describe("simple test", function() {
+		describe("simple test", function() {
 		    it("should test", function(){
 				assert(true, "1!==1");
 		    });
 		});
+
+		describe("Studio", function() {
+		    it("should should load project", function(done){
+	    		window.studio.init(defaultProject, function(config) { 
+					assert(window.studio.project._el.state.devices.length === 1, "1!==1");
+	    			done(); 
+	    		});
+
+		    });
+		});
 		var runner = window.mocha.run();
+	} else {
+		if (document.location.hostname === "localhost"){
+			window.studio.init(defaultProject);
+		}
 	}
 };
 
 
+window.addEventListener('polymer-ready', function (e) {
+	console.log("polymer-ready");
+});
+
 window.studio = new window.boom.Studio();
 window.gui = new window.boom.GUI(window.studio);
 window.studio.gui = window.gui;
-$("body").on('react-components-ready', function() {
-	
-	window.gui.initEventListeners();
-	window.studio.init(defaultProject, function(config) { 
-		$('#gui-loading-progress').fadeOut("fast", function() {});
-		test(); 
-	});
+
+$("body").on("react-components-ready", function() {
+	console.log("react-components-ready");
+	//window.studio.init(null, function(config) {});
+	window.studio.init(null, function(config) { test(); });
+	/*window.studio.init(null, function(config) {});*/
 });
 
-window.addEventListener('polymer-ready', function() {
-		debugger;
-		console.log("components-ready");
-		//window.studio.init(null, function(config) {});
-		//window.studio.init(null, function(config) {});
-});

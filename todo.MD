@@ -11,7 +11,6 @@
  - slice key settings {baseKey : 'C-0', range {start:-2, stop: 10 }} // one octave
  - efx plugin system
  - remove redundant code
- - rebuild bower.js
  - upload wave files to the https://s-a.github.io/sample-db/ project
  - efx plugin system
  - efx per slice
