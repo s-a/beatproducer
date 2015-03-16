@@ -702,8 +702,6 @@
 			if (initialProjectConfig && self.gui.bpmSlider){
 				self.gui.bpmSlider.value = initialProjectConfig.bpm;
 			}
-			//			window.addEventListener('polymer-ready', function (e) {
-			//			});
 
 			$('#gui-loading-progress').fadeIn("fast", function() {});
 			//$(function() {
@@ -1337,6 +1335,9 @@ var test = function  () {
 	}
 };
 
+
+window.addEventListener('polymer-ready', function (e) {
+	console.log("polymer-ready");
 window.studio = new window.boom.Studio();
 window.gui = new window.boom.GUI(window.studio);
 window.studio.gui = window.gui;
@@ -1347,3 +1348,5 @@ $("body").on("react-components-ready", function() {
 	window.studio.init(defaultProject, function(config) { test(); });
 	/*window.studio.init(null, function(config) {});*/
 });
+});
+

@@ -17,13 +17,23 @@
   ],
   "dependencies": {
     "ciseaux": "~0.1.7",
+    "core-drawer-panel": "Polymer/core-drawer-panel#^0.5",
+    "core-header-panel": "Polymer/core-header-panel#^0.5",
+    "core-icon-button": "Polymer/core-icon-button#^0.5",
+    "core-item": "Polymer/core-item#^0.5",
+    "core-collapse": "Polymer/core-collapse#^0.5",
     "core-menu": "Polymer/core-menu#~0.5.5",
     "core-scaffold": "Polymer/core-scaffold#~0.5.5",
-    "core-toolbar": "Polymer/core-toolbar#~0.5.5",
-    "core-toolbar": "Polymer/paper-slider#~0.5.5",
     "jquery-ui": "~1.11.3",
-    "react": "~0.12.2",
-    "link.js": ""
+    "jquery.cookie": "~1.4.1",
+    "link.js": "*",
+    "octokit": "~0.10.4",
+    "mocha": "~2.2.1",
+    "paper-checkbox": "Polymer/paper-checkbox#~0.5.5",
+    "paper-dialog": "Polymer/paper-dialog#~0.5.5",
+    "paper-slider": "Polymer/paper-slider#~0.5.5",
+    "paper-toast": "Polymer/paper-toast#~0.5.5",
+    "react": "~0.12.2"
   },
   "devDependencies": {
     "mocha": ""
