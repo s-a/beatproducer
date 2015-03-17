@@ -23,7 +23,24 @@
 
   var Device = React.createClass({
     handleOnDeleteDeviceClick : function() {
-      alert("delete");
+      var devices = this.state.device.project._el.state.devices;
+      
+      var _id = this.state.device._id;
+      for (var i = 0; i < devices.length; i++) {
+        var device = devices[i];
+        console.log(i, _id, device._id);
+        if (device._id === _id) {
+          devices.splice(i, 1);
+          break;
+        }
+      }
+      var $el = this.state.device.$();
+      $el.fadeOut("slow", function() {
+          $el.remove();
+      });
+
+      // FIXME: setState crashes device list state
+      // this.state.device.project._el.setState({devices:devices});
     },
     handleOnRenameDeviceClick : function() {
       var deviceName = $.trim(prompt ("Please enter a name for this device",this.state.name)).toLowerCase().replace(/ /g, "-");
@@ -66,11 +83,12 @@
     onSpectrumMouseClick: function(evt) {
         var device = this.state.device;
         var pos = device.spectrumPosition({x : this.cursorPosition(evt)});
-        document.title = pos.seconds + " sec";
-        device.markers.push(pos);
-        device.refreshSpectrum();
-        device.chopSlices();
-        device.project.studio.patternEditor.open(device);
+        if (pos){
+          device.markers.push(pos);
+          device.refreshSpectrum();
+          device.chopSlices();
+          device.project.studio.patternEditor.open(device);
+        }
     },
     getInitialState: function() {
       if (this.props.device){
@@ -84,8 +102,8 @@
       };
     },
     render: function() {
-      return  <div className="device-element-outset device">
-                <strong onClick={this.handleOnRenameDeviceClick} className="device-name">{this.state.name}</strong> <small className="device-transport-time">{this.state.currentTime}</small>
+      return  <div key={this.state.device._id} className="device-element-outset device">
+                <strong onClick={this.handleOnRenameDeviceClick} className="device-name">{this.state.device._id} {this.state.name}</strong> <small className="device-transport-time">{this.state.currentTime}</small>
                 <div>
                   <div onClick={this.onSpectrumMouseClick} onMouseMove={this.onSprectrumMouseMove}  onMouseLeave={this.onSprectrumMouseLeave} className="device-spectrum device-element-inset"></div>
                 </div>

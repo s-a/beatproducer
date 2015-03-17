@@ -1,5 +1,4 @@
- - add a test beatprocuder-projects (test if a file was deleted!)
- - delete  sampler	(add a key property to savely delete devices)  http://facebook.github.io/react/docs/multiple-components.html#dynamic-children
+ 
  - rename  private songs	
  - delete  private songs	
  - dialog to preview and open samples

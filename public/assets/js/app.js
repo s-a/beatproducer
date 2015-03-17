@@ -10,11 +10,16 @@
 	} else {
 		daAudioContext = new AudioContext();
 	}
+	var uniqueId = 0;
 
 	var onPlayBackIntervalInMilliseconds = 100;
 
 
 	/* ******************** HELPER FUNCTIONS ************************************************************  */
+		var id = function function_name (argument) {
+			uniqueId++;
+			return uniqueId;
+		}
 
 		$.ajaxTransport("+binary", function(options, originalOptions, jqXHR){
 				// check for conditions and support for blob / arraybuffer response type
@@ -114,7 +119,8 @@
 		var Device = function(_el) {
 			if (_el){
 				this._el = _el;
-			}
+			} 
+			this._id = id();
 			this.audioContext = daAudioContext;
 			this.bufSrc = null;
 			//  7  this._chored = false;
@@ -167,7 +173,17 @@
 		};
 
 		Device.prototype.$ = function() {
-			return $(this._el.getDOMNode());
+			var result = null;
+			if (this._el){
+				try{
+					result = $(this._el.getDOMNode());
+				} catch(e){
+					result = $([]);
+				}
+			} else {
+				result = $([]);
+			}
+			return result;
 		};
 
 		Device.prototype.get = function(url, done) {
@@ -270,6 +286,9 @@
 		};
 
 		Device.prototype.spectrumPosition = function(position) {
+			if (!this.audioBuffer){
+				return null;
+			}
 			var duration = this.audioBuffer.duration;
 			var result = {};
 
@@ -334,7 +353,7 @@
 		Device.prototype.initializeSpectrum = function() {
 			this.$().find("canvas").remove();
 			var canvas =  this.$().find(".device-spectrum").get(0);
-			if (!canvas) {
+			if (!canvas || !this.audioBuffer) {
 				return;
 			}
 			var data = this.audioBuffer.getChannelData(1);
@@ -1165,7 +1184,9 @@
 		GUI.prototype.onNewSamplerClick = function(el) {
 			var self = window.gui;
 			var arr = self.studio.project._el.state.devices;
-			arr.push(new Device());
+			var device = new Device();
+			device.project = self.studio.project;
+			arr.push(device);
 			self.studio.project._el.setState({devices:arr});
 		};
 		
