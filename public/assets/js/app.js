@@ -208,7 +208,9 @@
 			};
 
 			if (typeof url === 'string'){
-				this.name = url.split("/").pop();
+				if (!this.name){
+					this.name = url.split("/").pop();
+				}
 				if (!this.filename){
 					this.filename = url.replace(sampleDbPath, "");
 				}
@@ -494,6 +496,7 @@
 			};
 
 			return {
+				name : self.name,
 				sample : this.filename,
 				slices : slices(),
 				patterns : patterns()
@@ -520,22 +523,26 @@
 			var device = new Device();
 			var childDevices = self._el.state.devices;
 			var onComplete = function  () {
-					device.addMarker(deviceConfig.slices);
-					device.chopSlices();
-					if (done){
-						$.proxy(done, self)(device);
-					}
+				device.addMarker(deviceConfig.slices);
+				device.chopSlices();
+				if (done){
+					$.proxy(done, self)(device);
+				}
 			};
 			device.project = self;
 			childDevices.push(device);
 			self._el.setState({devices:childDevices}, function() {
+
 				if (deviceConfig.sample){
-					var shortName = deviceConfig.sample.split("/");
-					if (shortName.length > 1){
-						shortName.shift();
+					device.name = deviceConfig.name;
+					if (!device.name){
+						var shortName = deviceConfig.sample.split("/");
+						if (shortName.length > 1){
+							shortName.shift();
+						}
+						shortName = shortName.join("//");
+						device.name = shortName;
 					}
-					shortName = shortName.join("//");
-					device.name = shortName;
 					device.filename = deviceConfig.sample;
 					device.open(sampleDbPath + deviceConfig.sample,  onComplete);
 				}
@@ -606,7 +613,7 @@
 			for (var i = 0; i < this._el.state.devices.length; i++) {
 				var sampler = this._el.state.devices[i].config();
 				if (sampler.sample){
-					result.devices.push();
+					result.devices.push(sampler);
 				}
 			}
 			return result;

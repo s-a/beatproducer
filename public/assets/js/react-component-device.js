@@ -22,6 +22,14 @@
   });
 
   var Device = React.createClass({
+    handleOnRenameDeviceClick : function() {
+      var deviceName = $.trim(prompt ("Please enter a name for this device",this.state.name)).toLowerCase().replace(/ /g, "-");
+      if (deviceName !== ""){
+        var device = this.state.device;
+        device.name = deviceName;
+        this.setState({device: device, name:deviceName});
+      }
+    },
     handleOnOpenPatternEditorClick :function() {
       $("#pattern-editor").slideDown("fast");
       window.studio.patternEditor.open(this.state.device);
@@ -74,7 +82,7 @@
     },
     render: function() {
       return  <div className="device-element-outset device">
-                <strong className="device-name">{this.state.name}</strong> <small className="device-transport-time">{this.state.currentTime}</small>
+                <strong onClick={this.handleOnRenameDeviceClick} className="device-name">{this.state.name}</strong> <small className="device-transport-time">{this.state.currentTime}</small>
                 <div>
                   <div onClick={this.onSpectrumMouseClick} onMouseMove={this.onSprectrumMouseMove}  onMouseLeave={this.onSprectrumMouseLeave} className="device-spectrum device-element-inset"></div>
                 </div>

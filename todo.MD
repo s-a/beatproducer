@@ -1,5 +1,4 @@
- - delete  sampler	
- - rename  sampler	
+ - delete  sampler	 
  - rename  private songs	
  - delete  private songs	
  - dialog preview and open samples
