@@ -135,6 +135,17 @@ module.exports = function(grunt) {
 						flatten: false
 					}
 				]
+			},
+			webcomponentsjs: {
+				files: [
+					{
+						expand: true,
+						cwd: "./public/bower_components/webcomponentsjs",
+						src: ["webcomponents.min.js"],
+						dest: "./studio/bower_components/webcomponentsjs",
+						flatten: false
+					}
+				]
 			}
 		},
 
@@ -172,7 +183,7 @@ module.exports = function(grunt) {
 			},
 			dist: {
 				src: [
-					"./public/bower_components/polymer/polymer.min.js",
+					"./public/bower_components/polymer/polymer.min.js", 
 					"./public/bower_components/react/react-with-addons.min.js",
 					//"bower_components/react/JSXTransformer.js",
 					"./public/bower_components/jquery/dist/jquery.min.js",
@@ -224,7 +235,8 @@ module.exports = function(grunt) {
 			'cssmin',
 			'string-replace:correction',
 			'clean:bower_components',
-			'clean:after'
+			'clean:after',
+			'copy:webcomponentsjs',
 			/*
 			*/
 		]

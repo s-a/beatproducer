@@ -1,27 +1,29 @@
- - delete  sampler	 
+ - add a test beatprocuder-projects (test if a file was deleted!)
+ - delete  sampler	(add a key property to savely delete devices)  http://facebook.github.io/react/docs/multiple-components.html#dynamic-children
  - rename  private songs	
  - delete  private songs	
- - dialog preview and open samples
+ - dialog to preview and open samples
  - search & import song devices only
  - add tags to project configs (project property page) 
  - Sequencer editor using https://github.com/taye/interact.js
  - Slice/chop editor belowe device
+ - add commmit message input	
  - zoom waveform
- - add a css postprocessor to grunt build job
  - full screen waveform
- - slice key settings {baseKey : 'C-0', range {start:-2, stop: 10 }} // one octave
+ - full screen pattern editor
  - efx plugin system
  - remove redundant code
- - upload wave files to the https://s-a.github.io/sample-db/ project
  - efx plugin system
  - efx per slice
  - write test suite
  - volume per note and step
+ - add a css postprocessor to grunt build job
  - Wav download -> https://github.com/mattdiamond/Recorderjs/blob/master/recorderWorker.js#L39
- - new device (synthesizer)
  - load open midi samples and map to sampler device
- - midi support
+ - upload wave files to the https://s-a.github.io/sample-db/ project
  - export to sound cloud
+ - slice key settings {baseKey : 'C-0', range {start:-2, stop: 10 }} // one octave
  - change basic auth to OAuth
+ - midi support
  
  https://github.com/gasman/jasmid 

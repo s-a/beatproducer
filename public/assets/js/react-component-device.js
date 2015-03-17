@@ -22,6 +22,9 @@
   });
 
   var Device = React.createClass({
+    handleOnDeleteDeviceClick : function() {
+      alert("delete");
+    },
     handleOnRenameDeviceClick : function() {
       var deviceName = $.trim(prompt ("Please enter a name for this device",this.state.name)).toLowerCase().replace(/ /g, "-");
       if (deviceName !== ""){
@@ -91,6 +94,7 @@
                 <a className="device-button device-button-stop" href="javascript:void(0);" onClick={this.handleOnStopClick}><img width="32" src="assets/images/ic_stop_48px.svg"/></a> 
                 <a className="device-button device-button-opensample" href="javascript:void(0);" onClick={this.handleOnOpenClick}><img width="32" src="assets/images/ic_folder_open_48px.svg"/></a> 
                 <a className="device-button device-button-pattern-editor" href="javascript:void(0);" onClick={this.handleOnOpenPatternEditorClick}><img width="32" src="assets/images/ic_queue_music_48px.svg"/></a> 
+                <a className="device-button device-button-pattern-editor" href="javascript:void(0);" onClick={this.handleOnDeleteDeviceClick}><img width="32" src="assets/images/ic_delete_48px.svg"/></a> 
               </div> ;
     }
   });

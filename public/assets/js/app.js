@@ -1084,7 +1084,7 @@
 							document.querySelector('#project-open-dialog').toggle();
 						});
 					});
-				})
+				});
 			});
 
 		};
@@ -1211,8 +1211,8 @@
 		GUI.prototype.initEventListeners = function() {
 			var self = this;
 			window.addEventListener('polymer-ready', function (e) {
-				console.log("polymer-ready");
-				////$("#gui").get(0).responsiveWidth = "1920px";
+
+
 				window.Polymer.addEventListener(document.getElementById('btn-login'), 'tap', self.loginAction);
 				self.bpmSlider = document.querySelector('#bpm');
 				self.bpmSlider.addEventListener('core-change', function() {
@@ -1337,7 +1337,12 @@ window.studio.gui = window.gui;
 
 $("body").on("react-components-ready", function() {
 	window.studio.init(null, function(config) { 
-		window.boomTestSuite();
+		if(window.boomTestSuite){
+			window.boomTestSuite();
+		} else {
+			$("#gui").get(0).responsiveWidth = "1920px";
+			// load a  song?
+		}
 	});
 	//window.studio.init(null, function(config) {});
 	/*window.studio.init(null, function(config) {});*/
