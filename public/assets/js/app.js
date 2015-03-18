@@ -15,6 +15,9 @@
 	var onPlayBackIntervalInMilliseconds = 100;
 
 
+
+
+
 	/* ******************** HELPER FUNCTIONS ************************************************************  */
 		var id = function function_name (argument) {
 			uniqueId++;
@@ -412,7 +415,7 @@
 				self.bufSrc.connect(self.destination);
 				self.bufSrc.onended = function() {
 					window.clearInterval(self.onPlayBackTimerInterval);
-					$.proxy(done, self);
+					$.proxy(done, self)();
 				};
 				var onPlayBackEventHandler = $.proxy(self.onPlayBack, self);
 				self.onPlayBackTimerInterval = window.setInterval(onPlayBackEventHandler, onPlayBackIntervalInMilliseconds);
@@ -808,7 +811,7 @@
 					self.bufSrc.connect(self.destination);
 					self.bufSrc.onended = function() {
 						if (done){
-							$.proxy(done, self);
+							$.proxy(done, self)();
 						}
 					};
 					self.bufSrc.start(0, 0);
@@ -1367,4 +1370,5 @@ $("body").on("react-components-ready", function() {
 	});
 	//window.studio.init(null, function(config) {});
 	/*window.studio.init(null, function(config) {});*/
+
 });

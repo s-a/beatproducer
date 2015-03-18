@@ -11,6 +11,7 @@ var servePath = function(folder){
 servePath("audio");
 servePath("public");
 servePath("studio");
+servePath("test");
 
 var port = process.env.PORT || 3000;
 app.listen(port);

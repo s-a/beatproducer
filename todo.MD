@@ -1,18 +1,16 @@
- 
  - rename  private songs	
  - delete  private songs	
  - dialog to preview and open samples
- - search & import song devices only
+ - import song devices only
  - add tags to project configs (project property page) 
- - Sequencer editor using https://github.com/taye/interact.js
  - Slice/chop editor belowe device
+ - Sequencer editor using https://github.com/taye/interact.js
  - add commmit message input	
  - zoom waveform
  - full screen waveform
  - full screen pattern editor
  - efx plugin system
  - remove redundant code
- - efx plugin system
  - efx per slice
  - write test suite
  - volume per note and step

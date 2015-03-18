@@ -28,7 +28,6 @@
       var _id = this.state.device._id;
       for (var i = 0; i < devices.length; i++) {
         var device = devices[i];
-        console.log(i, _id, device._id);
         if (device._id === _id) {
           devices.splice(i, 1);
           break;
