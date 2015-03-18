@@ -123,17 +123,20 @@
 			if (_el){
 				this._el = _el;
 			} 
+			this.effects = [];
 			this._id = id();
 			this.audioContext = daAudioContext;
 			this.bufSrc = null;
 			//  7  this._chored = false;
 			//    this._db = {};
+			 
 			this._comp = this.audioContext.createDynamicsCompressor();
 			this._comp.connect(this.audioContext.destination);
 			this._comp.threshold.value = -18;
 			this._comp.knee.value = 8;
 
 			this.destination = this._comp;
+			
 
 			this.transportTime = 0;
 			this._loadingProgressIndicatorInterval = null;
@@ -148,6 +151,12 @@
 
 
 			return this;
+		};
+
+		Device.prototype.connectEffect = function(effect) {
+			this.effects.push(effect);
+			effect.connect(this.audioContext.destination);
+			this.destination = effect.output;
 		};
 
 		Device.prototype.addMarker = function(seconds) {
@@ -892,7 +901,7 @@
 					self.bufSrc.buffer = self.audioBuffer;
 					self.bufSrc.connect(self.destination);
 					self.bufSrc.onended = function() {
-							$.proxy(done, self);
+						$.proxy(done, self);
 					};
 					self.bufSrc.loop = true;
 					self.bufSrc.start(0, 0);
