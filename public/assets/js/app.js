@@ -144,8 +144,15 @@
 			this.device = device;
 
 		  	var source = null;
-		  	if (settings.source === "MAINSIGNAL"){ // TODO: fetch from effect list by ID;
-		  		source = this.device.effectController.computedEffects[0].output; // _comp
+		  	if (settings.source){ 
+		  		
+		  		for (var i = 0; i < this.device.effectController.effects.length; i++) {
+		  			var fx = this.device.effectController.effects[i];
+		  			if (fx.id === settings.source) {// eg main signal
+		  				source = this.device.effectController.computedEffects[i].output; // _comp
+		  				break;
+		  			}
+		  		}
 		  	}
 
 
