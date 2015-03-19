@@ -51,11 +51,10 @@
 				});
 
 				it("should should apply distortion effect", function(done){
-					var distortion = new window.sa.webAudioFX.Distortion(device.audioContext, {curve: 400, oversample: 4});
-
-					device.connectEffect(distortion);
-					
-					//distortion.disconnect();
+				  	var source = device._comp;
+					var ctx = device.audioContext;
+					var distortion = new window.sa.webAudioFX.Distortion(ctx, device.audioContext.destination, {curve: 80, oversample: 4});
+					source.connect(distortion.output);
 
 					device.stop();
 					device.play(function() {

@@ -135,7 +135,27 @@
 			this._comp.threshold.value = -18;
 			this._comp.knee.value = 8;
 
-			this.destination = this._comp;
+  	
+  			var source = this._comp;
+				/*  	
+				    var delay = ctx.createDelay();
+				    delay.delayTime.value = 0.5;
+
+				    var feedback = ctx.createGain();
+				    feedback.gain.value = 0.8;
+
+				    var filter = ctx.createBiquadFilter();
+				    filter.frequency.value = 1000;
+
+				    delay.connect(feedback);
+				    feedback.connect(filter);
+				    filter.connect(delay);
+
+				    source.connect(delay);
+				    source.connect(ctx.destination);
+				    delay.connect(ctx.destination);
+				*/			
+			this.destination = source;
 			
 
 			this.transportTime = 0;
@@ -155,8 +175,8 @@
 
 		Device.prototype.connectEffect = function(effect) {
 			this.effects.push(effect);
-			effect.connect(this.audioContext.destination);
-			this.destination = effect.output;
+			this._comp.connect(effect);
+			//this.destination = effect.output;
 		};
 
 		Device.prototype.addMarker = function(seconds) {

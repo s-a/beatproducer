@@ -16,11 +16,15 @@
 
 
 	var setup = {};
-	var Effect = function(audioContext, config) {
+	var Effect = function(audioContext, connectTo, config) {
 		setup = config;
 		this._id = window.sa.webAudioFX._id;
 		window.sa.webAudioFX._id++;
+
 		this.output = audioContext.createWaveShaper();
+		if (connectTo){
+			this.output.connect(connectTo);
+		}
 		this.output.curve = makeDistortionCurve(config.curve);
 		this.output.oversample = config.oversample + "x";
 		return this;
