@@ -11,9 +11,10 @@
  - add effect scripts to grunt build job
  - full screen waveform
  - full screen pattern editor
+ - open published songs without login
+ - add social netowork share options
 
- - remove redundant code
- - efx per slice // apply efx trough recorder.js
+ - clean up redundant code
 
  - volume per note and step
 

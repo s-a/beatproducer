@@ -497,6 +497,17 @@
 			/*
 						this.effectController.add({
 							id : "myDistortionEffect",
+							type : "Delay",
+							source : "MAINSIGNAL",
+							//connectTo : "MAIN",
+							config : {
+								delayTime:0.25
+							}
+						});*/
+
+			/*
+						this.effectController.add({
+							id : "myDistortionEffect",
 							type : "Distortion",
 							source : "MAINSIGNAL",
 							//connectTo : "MAIN",

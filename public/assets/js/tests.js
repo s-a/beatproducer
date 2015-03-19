@@ -51,7 +51,6 @@
 				});
 
 				it("should apply distortion effect", function(done){
-
 					device.effectController.add({
 						id : "myDistortionEffect",
 						type : "Distortion",
@@ -69,7 +68,25 @@
 					});
 				});
 
-				it("should should play undistorted sample", function(done){
+				it("should apply delay effect", function(done){
+					device.effectController.effects.pop();
+					device.effectController.add({
+						id : "myDelayEffect",
+						type : "Delay",
+						source : "MAINSIGNAL",
+						//connectTo : "MAIN",
+						config : {
+							delayTime : 0.5
+						}
+					});
+
+					device.stop();
+					device.play(function() {
+						done();
+					});
+				});
+
+				it("should should play dry sample", function(done){
 					device.effectController.effects.pop();
 					device.stop();
 					device.play(function() {
