@@ -15,9 +15,6 @@
 	var onPlayBackIntervalInMilliseconds = 100;
 
 
-
-
-
 	/* ******************** HELPER FUNCTIONS ************************************************************  */
 		var id = function function_name (argument) {
 			uniqueId++;
@@ -1482,15 +1479,30 @@ window.gui = new window.boom.GUI(window.studio);
 window.studio.gui = window.gui;
 
 $("body").on("react-components-ready", function() {
+	
 	window.studio.init(null, function(config) { 
-		if(window.boomTestSuite){
-			window.boomTestSuite();
+		// load a  song?
+		var lnk = new window.LNK("b");
+		if (lnk.raw.song){
+			$.ajax({
+				url: "https://api.github.com/repos/s-a/beatproducer-projects/contents/projects/" + lnk.raw.song + ".json",
+				method:"get",
+				success:function(contents) {
+					var cfg = window.atob(contents.content);
+					cfg = JSON.parse(cfg);
+					window.studio.init(cfg, function(config) {});
+				},
+				error:function(a,b) {
+					window.gui.alert("Could not load song " + lnk.get("song") + ": " + a.responseJSON.message);
+				}
+			})
 		} else {
-			$("#gui").get(0).responsiveWidth = "1920px";
-			// load a  song?
+			if(window.boomTestSuite){
+				window.boomTestSuite();
+			} else {
+				$("#gui").get(0).responsiveWidth = "1920px";
+			}
 		}
 	});
-	//window.studio.init(null, function(config) {});
-	/*window.studio.init(null, function(config) {});*/
 
 });
