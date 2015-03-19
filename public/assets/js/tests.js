@@ -50,17 +50,33 @@
 					});
 				});
 
-				it("should should apply distortion effect", function(done){
-				  	var source = device._comp;
-					var ctx = device.audioContext;
-					var distortion = new window.sa.webAudioFX.Distortion(ctx, device.audioContext.destination, {curve: 80, oversample: 4});
-					source.connect(distortion.output);
+				it("should apply distortion effect", function(done){
+
+					device.effectController.add({
+						id : "myDistortionEffect",
+						type : "Distortion",
+						source : "MAINSIGNAL",
+						//connectTo : "MAIN",
+						config : {
+							curve: 80, 
+							oversample: 4
+						}
+					});
 
 					device.stop();
 					device.play(function() {
 						done();
 					});
 				});
+
+				it("should should play undistorted sample", function(done){
+					device.effectController.effects.pop();
+					device.stop();
+					device.play(function() {
+						done();
+					});
+				});
+
 
 				it("should should play each slice", function(done){
 					var sliceIdx = device.slices.length-1;

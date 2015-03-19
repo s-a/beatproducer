@@ -117,13 +117,84 @@
 			return result;
 		}
 
+	/* ******************** FX controller ************************************************************  */
+		var EffectController = function  (device) {
+			this.device = device;
+			this.effects = [];
+			this.computedEffects = [];
+
+			this.add({
+				id : "MAINSIGNAL",
+				type : "Compressor",
+				//connectTo : "MAIN",
+				config : {
+					threshold: -18, 
+					knee: 8
+				}
+			});
+
+			return this;
+		}
+
+		EffectController.prototype.add = function(fxConfig) {
+			this.effects.push(fxConfig);
+		};
+
+		EffectController.prototype.Effect = function(device, settings) {
+			this.device = device;
+
+		  	var source = null;
+		  	if (settings.source === "MAINSIGNAL"){ // TODO: fetch from effect list by ID;
+		  		source = this.device.effectController.computedEffects[0].output; // _comp
+		  	}
+
+
+			var ctx = this.device.audioContext;
+			if (!window.sa.webAudioFX[settings.type]){
+				throw "Effect " + settings.type + " not found!";
+			}
+			this.effect = new window.sa.webAudioFX[settings.type](ctx, this.device.audioContext.destination, settings.config);
+			if (source){
+				source.connect(this.effect.output);
+			}
+
+			if (settings.id === "MAINSIGNAL"){
+				this.device.destination = this.effect.output; // compressor.output;
+			}
+			return this.effect;
+		};
+
+		EffectController.prototype.apply = function() {
+
+			this.computedEffects = [];
+
+
+/*			
+			this.device._comp = this.device.audioContext.createDynamicsCompressor();
+			this.device._comp.connect(this.device.audioContext.destination);
+			this.device._comp.threshold.value = -18;
+			this.device._comp.knee.value = 8;
+			this.device.destination = this.device._comp;
+*/
+			for (var i = 0; i < this.effects.length; i++) {
+				var effectConfig = this.effects[i];
+				var effect = new this.Effect(this.device, effectConfig);
+				this.computedEffects.push(effect);
+			}
+
+			
+			// MAIN device.audioContext.destination
+
+
+		};
+
 	/* ******************** DEVICE ************************************************************  */
 
 		var Device = function(_el) {
 			if (_el){
 				this._el = _el;
 			} 
-			this.effects = [];
+			this.effectController = new EffectController(this);
 			this._id = id();
 			this.audioContext = daAudioContext;
 			this.bufSrc = null;
@@ -171,12 +242,6 @@
 
 
 			return this;
-		};
-
-		Device.prototype.connectEffect = function(effect) {
-			this.effects.push(effect);
-			this._comp.connect(effect);
-			//this.destination = effect.output;
 		};
 
 		Device.prototype.addMarker = function(seconds) {
@@ -439,12 +504,17 @@
 			if (this.tape) {
 				var self = this;
 
+				this.effectController.apply();
+
+
 				self.bufSrc = self.audioContext.createBufferSource();
 				self.bufSrc.buffer = self.audioBuffer;
 				self.bufSrc.connect(self.destination);
 				self.bufSrc.onended = function() {
 					window.clearInterval(self.onPlayBackTimerInterval);
-					$.proxy(done, self)();
+					if (done){
+						$.proxy(done, self)();
+					}
 				};
 				var onPlayBackEventHandler = $.proxy(self.onPlayBack, self);
 				self.onPlayBackTimerInterval = window.setInterval(onPlayBackEventHandler, onPlayBackIntervalInMilliseconds);

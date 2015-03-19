@@ -1,5 +1,7 @@
 (function() {
 
+	var setup = {};
+
 	var makeDistortionCurve = function (amount) {
 	  var k = typeof amount === 'number' ? amount : 50,
 	    n_samples = 44100,
@@ -14,8 +16,6 @@
 	  return curve;
 	};
 
-
-	var setup = {};
 	var Effect = function(audioContext, connectTo, config) {
 		setup = config;
 		this._id = window.sa.webAudioFX._id;
