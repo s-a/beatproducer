@@ -494,7 +494,7 @@
 		};
 
 		Device.prototype.play = function(done) {
-			
+			/*
 						this.effectController.add({
 							id : "myDistortionEffect",
 							type : "Distortion",
@@ -506,7 +506,7 @@
 							}
 						});
 
-			 
+			 */
 
 			this.pause();
 			if (this.tape) {
