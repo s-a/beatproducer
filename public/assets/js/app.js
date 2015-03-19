@@ -144,14 +144,16 @@
 			this.device = device;
 
 		  	var source = null;
-		  	if (settings.source){ 
-		  		
+		  	if (settings.source){
 		  		for (var i = 0; i < this.device.effectController.effects.length; i++) {
 		  			var fx = this.device.effectController.effects[i];
 		  			if (fx.id === settings.source) {// eg main signal
 		  				source = this.device.effectController.computedEffects[i].output; // _comp
 		  				break;
 		  			}
+		  		}
+		  		if (!source){
+		  			throw "Source Effect Device "  + settings.source + " not found";
 		  		}
 		  	}
 
@@ -174,8 +176,6 @@
 		EffectController.prototype.apply = function() {
 
 			this.computedEffects = [];
-
-
 /*			
 			this.device._comp = this.device.audioContext.createDynamicsCompressor();
 			this.device._comp.connect(this.device.audioContext.destination);
