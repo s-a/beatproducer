@@ -32,7 +32,7 @@
 				"type"			: Number,
 				"description"	: "todo",
 				"val"			: this.knee
-			},
+			}
 		};
 	};
 

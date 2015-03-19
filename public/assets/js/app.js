@@ -176,13 +176,7 @@
 		EffectController.prototype.apply = function() {
 
 			this.computedEffects = [];
-/*			
-			this.device._comp = this.device.audioContext.createDynamicsCompressor();
-			this.device._comp.connect(this.device.audioContext.destination);
-			this.device._comp.threshold.value = -18;
-			this.device._comp.knee.value = 8;
-			this.device.destination = this.device._comp;
-*/
+
 			for (var i = 0; i < this.effects.length; i++) {
 				var effectConfig = this.effects[i];
 				var effect = new this.Effect(this.device, effectConfig);
@@ -208,14 +202,7 @@
 			//  7  this._chored = false;
 			//    this._db = {};
 			 
-			this._comp = this.audioContext.createDynamicsCompressor();
-			this._comp.connect(this.audioContext.destination);
-			this._comp.threshold.value = -18;
-			this._comp.knee.value = 8;
-
-  	
-  			var source = this._comp;
-				/*  	
+								/*  	
 				    var delay = ctx.createDelay();
 				    delay.delayTime.value = 0.5;
 
@@ -233,7 +220,7 @@
 				    source.connect(ctx.destination);
 				    delay.connect(ctx.destination);
 				*/			
-			this.destination = source;
+			//this.destination = source;
 			
 
 			this.transportTime = 0;
@@ -507,12 +494,25 @@
 		};
 
 		Device.prototype.play = function(done) {
+			
+						this.effectController.add({
+							id : "myDistortionEffect",
+							type : "Distortion",
+							source : "MAINSIGNAL",
+							//connectTo : "MAIN",
+							config : {
+								curve: 80, 
+								oversample: 4
+							}
+						});
+
+			 
+
 			this.pause();
 			if (this.tape) {
 				var self = this;
 
 				this.effectController.apply();
-
 
 				self.bufSrc = self.audioContext.createBufferSource();
 				self.bufSrc.buffer = self.audioBuffer;
@@ -592,7 +592,7 @@
 				var start = this.markers[i].seconds;
 				var length = this.markers[i+1].seconds - this.markers[i].seconds;
 				var tape = this.tape.slice(start, length);
-				this.slices.push(new Slice(tape));
+				this.slices.push(new Slice(self, tape));
 			}
 		};
 
@@ -881,7 +881,7 @@
 
 	/* ******************** SLICE ************************************************************  */
 
-		var Slice = function(tape) {
+		var Slice = function(device, tape) {
 			var count = 1;
 			var g = 1;
 			tape = Ciseaux.concat(tape.split(1000).map(function(tape, i) {
@@ -895,23 +895,25 @@
 
 			this.audioContext = daAudioContext;
 			this.bufSrc = null;
-			//  7  this._chored = false;
-			//    this._db = {};
-			this._comp = this.audioContext.createDynamicsCompressor();
-			this._comp.connect(this.audioContext.destination);
-			this._comp.threshold.value = -18;
-			this._comp.knee.value = 8;
-
-			this.destination = this._comp;
+			this.device = device;
+			this.effectController = new EffectController(this);
 
 			return this;
 		};
 
 		Slice.prototype.play = function(done) {
+			this.effectController.effects = [];
+
+			for (var i = 0; i < this.device.effectController.effects.length; i++) {
+				var fx = this.device.effectController.effects[i];
+				this.effectController.add(fx);
+			}
+
 			if (this.tape) {
 				var self = this;
 				this.tape.render(this.audioContext, 2).then(function(audioBuffer) {
 					self.audioBuffer = audioBuffer;
+					self.effectController.apply();
 					self.bufSrc = self.audioContext.createBufferSource();
 					self.bufSrc.buffer = self.audioBuffer;
 					self.bufSrc.connect(self.destination);
@@ -937,12 +939,7 @@
 			this.bufSrc = null;
 			//  7  this._chored = false;
 			//    this._db = {};
-			this._comp = this.audioContext.createDynamicsCompressor();
-			this._comp.connect(this.audioContext.destination);
-			this._comp.threshold.value = -18;
-			this._comp.knee.value = 8;
-
-			this.destination = this._comp;
+			this.effectController = new EffectController(this);
 
 			return this;
 		};
@@ -990,10 +987,18 @@
 		};
 
 		Pattern.prototype.play = function(done) {
+
+			this.effectController.effects = [];
+			for (var i = 0; i < this.device.effectController.effects.length; i++) {
+				var fx = this.device.effectController.effects[i];
+				this.effectController.add(fx);
+			}
+
 			var self = this;
 			self.renderSequence(function(tape) {
 				self.tape.render(self.audioContext, 2).then(function(audioBuffer) {
 					self.audioBuffer = audioBuffer;
+					self.effectController.apply();
 					self.bufSrc = self.audioContext.createBufferSource();
 					self.bufSrc.buffer = self.audioBuffer;
 					self.bufSrc.connect(self.destination);

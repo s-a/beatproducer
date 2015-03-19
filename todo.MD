@@ -6,14 +6,17 @@
  - Slice/chop editor belowe device
  - Sequencer editor using https://github.com/taye/interact.js
  - add commmit message input	
+ - open from commit history log	
  - zoom waveform
+ - add effect scripts to grunt build job
  - full screen waveform
  - full screen pattern editor
- - efx plugin system
+
  - remove redundant code
- - efx per slice
- - write test suite
+ - efx per slice // apply efx trough recorder.js
+
  - volume per note and step
+
  - add a css postprocessor to grunt build job
  - Wav download -> https://github.com/mattdiamond/Recorderjs/blob/master/recorderWorker.js#L39
  - load open midi samples and map to sampler device

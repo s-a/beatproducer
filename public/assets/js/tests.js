@@ -77,7 +77,6 @@
 					});
 				});
 
-
 				it("should should play each slice", function(done){
 					var sliceIdx = device.slices.length-1;
 					var playSlice = function(idx) {

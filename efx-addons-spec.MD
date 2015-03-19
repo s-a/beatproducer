@@ -1,8 +1,6 @@
-## Effect addons specification
+## Effect addons specification (draft)
 
 Some basic Effect Addons are build in to Beatproducer Studio.
-An addon is available in GUI per slice, per device per track and last but not least for the whole audio mixdown. 
-
-You can add custom Effects by adding a Javascript file to respository.
+You can add custom Effects by adding a Javascript file to this respository.
 
 [Example effect addon](public/assets/js/fx/distortion.js)
