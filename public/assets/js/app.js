@@ -1165,6 +1165,13 @@
 			document.querySelector('#login-dialog').toggle();
 		};
 
+		GUI.prototype.onSocialShareSongClick = function(el) {
+			document.querySelector('#social-share-dialog').toggle();
+			window.setTimeout(function() {
+				$(window).trigger('resize');
+			},400);
+		};
+
 		GUI.prototype.onOpenProjectClick = function(el) {
 			var self = window.gui;
 
@@ -1423,6 +1430,7 @@
 				$("#studio-button-save").click(self.onSaveProjectClick);
 				$("#studio-button-my-workspace").click(self.onMyWorkspaceClick);
 				$("#studio-button-project-discuss").click(self.onDiscussSongClick);
+				$("#studio-button-social-share-song").click(self.onSocialShareSongClick);
 			});
 		};
 
@@ -1479,7 +1487,7 @@ window.gui = new window.boom.GUI(window.studio);
 window.studio.gui = window.gui;
 
 $("body").on("react-components-ready", function() {
-	
+
 	window.studio.init(null, function(config) { 
 		// load a  song?
 		var lnk = new window.LNK("b");

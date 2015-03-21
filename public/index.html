@@ -26,6 +26,7 @@
 
   <!-- STYLE START -->
   <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+  <link rel="stylesheet" type="text/css" href="bower_components/look-at-this/dist/look-at-this.min.css">
   <!-- STYLE END -->
 </head>
   <body>
@@ -52,9 +53,19 @@
       <paper-button affirmative default id="btn-login">Login</paper-button>
     </paper-action-dialog>
 
+
+
+    <paper-action-dialog backdrop autoCloseDisabled layered="false" transition="core-transition-top" id="social-share-dialog" style="display:none;">
+    <div class="main-container">
+      <h1>Share this page</h1>
+      <div id="social-icons"></div>
+      <paper-button affirmative dismissive>OK</paper-button>
+    </div> <!-- #main-container -->
+
+    </paper-action-dialog>
+
     <paper-action-dialog backdrop autoCloseDisabled layered="false" transition="core-transition-top" id="project-open-dialog" style="display:none;">
       <h2>Open Project</h2>
-
 
       <polymer-element name="x-open-public-project-link" attributes="name user" >
         <template>
@@ -110,7 +121,7 @@
             <core-item id="studio-button-my-workspace" icon="settings" label="My Workspace"></core-item>
 
           <core-label horizontal layout><br>Social<br></core-label>
-            <core-item icon="social:share" label="Share" onclick="window.gui.alert('This function is still @work. It will be available soon. o.O')"></core-item>
+            <core-item icon="social:share" label="Share" id="studio-button-social-share-song"></core-item>
             <core-item id="studio-button-project-discuss" icon="question-answer" label="Discuss this song"></core-item>
             <core-item id="studio-button-share-song" icon="open-in-new" label="Share via Link" onclick="window.gui.alert('This function is still @work. It will be available soon. o.O')"></core-item>
 
@@ -143,8 +154,6 @@
       <div id="fixtures" style="display:none;"></div>
       <div id="pattern-editor"></div>
       <div id="content" class="boom-sound-player"></div>
-
-
     </core-scaffold>
     <div id="gui-loading-progress">
       <img align="center" src="assets/images/pre-loader2.gif" /><br>
@@ -161,6 +170,7 @@
     <script type="text/javascript" src="bower_components/octokit/octokit.js"></script>
     <script type="text/javascript" src="bower_components/ciseaux/build/ciseaux.min.js"></script>
     <script type="text/javascript" src="bower_components/link.js/dist/lnk.js"></script>
+    <script type="text/javascript" src="bower_components/look-at-this/dist/look-at-this.min.js"></script>
 
     <script type="text/javascript" src="assets/js/waveform.js"></script>
     <script type="text/javascript" src="assets/js/recorder.js"></script>
