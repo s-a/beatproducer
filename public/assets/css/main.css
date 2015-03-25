@@ -106,7 +106,7 @@ paper-slider::shadow #sliderKnobInner {
   min-width: 140px;
   background-color: white;
   color: black;
-  border : solid 1px grey;
+  border : solid 1px #ccc;
   border-left : 0;
   display: table-cell;
   border-top-right-radius: 5px;
@@ -132,7 +132,7 @@ paper-slider::shadow #sliderKnobInner {
 {
   border-bottom: 0;
   border-bottom-right-radius: 0;
-  background-color: silver;
+  background-color: #ccc;
 }
 
 
@@ -167,27 +167,30 @@ paper-slider::shadow #sliderKnobInner {
 
 
 .pattern-keyboard-step-offset{
+  box-sizing: border-box;
   background-color: #0D0D0D;
   border:0;
   border-right: solid 1px purple;
-  display: "table-cell";
+  display: table-cell;
   width: 50px;
   min-width: 50px;
   height: 21px;
 }
 
 .pattern-keyboard-step-offset-bottom{
-  border-top : solid 1px grey;
-  border-right : solid 1px grey;
+  box-sizing: border-box;
+  border-top : solid 1px #ccc;
+  border-right : solid 1px #ccc;
   background-color: silver;
   border-top-right-radius: 5px;
- height: 12px; 
+  height: 12px; 
 }
 
 .pattern-keyboard-step-offset-top{
+  box-sizing: border-box;
   height: 12px;
-  border-bottom:  solid 1px grey;
-  border-right : solid 1px grey;
+  border-bottom:  solid 1px #ccc;
+  border-right : solid 1px #ccc;
   background-color: green;
   border-bottom-right-radius: 5px;
   background-color: silver;
@@ -197,8 +200,7 @@ paper-slider::shadow #sliderKnobInner {
   position: relative;
 }
 
-.pattern-keyboard-step:first-child{
-}
+
 
 .pattern-keyboard-step{
   width: 22px; 

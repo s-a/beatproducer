@@ -3,11 +3,9 @@
 
 
 [![Build Status](http://img.shields.io/travis/s-a/beatproducer.svg?style=flat-square)](https://travis-ci.org/s-a/beatproducer)
+[![Codacy Badge](https://www.codacy.com/project/badge/5d076820556443fcb6f3c48368f33156)](https://www.codacy.com/app/stephanahlf/beatproducer)
 [![Coverage Status](http://img.shields.io/coveralls/s-a/beatproducer.svg?style=flat-square)](https://coveralls.io/r/s-a/beatproducer?branch=master)
 [![License](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](http://s-a.mit-license.org/)
-[![Dependencies](https://img.shields.io/david/s-a/beatproducer.svg)](#)
-[![Development Dependencies](https://img.shields.io/david/dev/s-a/beatproducer.svg)](#)
-[![Codacy Badge](https://www.codacy.com/project/badge/5d076820556443fcb6f3c48368f33156)](https://www.codacy.com/app/stephanahlf/beatproducer)
 
 
 ## Work in progress...
