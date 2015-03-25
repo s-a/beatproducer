@@ -138,7 +138,7 @@
       return false;
     },
     handleOnKeyClick :function(e) {
-      sliceIndex = parseInt($(e.currentTarget).attr("data"));
+      var sliceIndex = parseInt($(e.currentTarget).attr("data"));
       this.state.connectedDevice.slices[sliceIndex].play();
     },
     handleOnPlayClick : function  (e) {

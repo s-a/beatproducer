@@ -69,7 +69,7 @@ paper-slider::shadow #sliderKnobInner {
   border-radius: 3px;
   display: inline-block;
   margin-top: 15px;
-  padding-bottom: 0px;
+  padding-bottom: 0;
 }
 
 .device-element-hidden{
