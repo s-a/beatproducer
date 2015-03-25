@@ -49,7 +49,9 @@
 
 									// setup custom headers
 									for (var i in headers ) {
-										xhr.setRequestHeader(i, headers[i] );
+										if (headers.hasOwnProperty(i)){
+											xhr.setRequestHeader(i, headers[i] );
+										}
 									}
 
 									xhr.responseType = dataType;
@@ -1461,7 +1463,7 @@ var defaultProject = {
 	devices: [
 		{
 			sample : "beatproducer-drum-loops-pack-1/bpnet_european_hip_hop_beat_090bpm.wav",
-			slices : [0,0.67, 10.67, 1 /*,2,3,5,4,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21*/],
+			slices : [0,0.67, 10.67, 1],
 			patterns : [
 				{
 					id: 1,

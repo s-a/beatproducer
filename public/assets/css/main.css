@@ -11,7 +11,7 @@ paper-slider::shadow #sliderKnobInner {
 }
 
 #mainContainer{
-  background-color: #526E9C !important;
+  background-color: #526E9C;
 }
 
 
@@ -88,7 +88,7 @@ paper-slider::shadow #sliderKnobInner {
   top: 0; left: 0; bottom: 0; right: 0;
   text-align: center;
   border-radius: 22px;
-  padding: 22px;
+
 }
 
 
@@ -169,8 +169,8 @@ paper-slider::shadow #sliderKnobInner {
 .pattern-keyboard-step-offset{
   background-color: #0D0D0D;
   border:0;
-  border-right: solid 1px purple
-  display: table-cell;
+  border-right: solid 1px purple;
+  display: "table-cell";
   width: 50px;
   min-width: 50px;
   height: 21px;
@@ -219,10 +219,7 @@ paper-slider::shadow #sliderKnobInner {
   display: none;
 }
 
-html /deep/ [layout][vertical] #mainContainer{
-  background-color: #0D0D0D;
-  color: #F2F2F2;
-}
+
 
 li{
   list-style-type: none;
