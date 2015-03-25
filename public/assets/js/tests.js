@@ -109,7 +109,7 @@
 					playSlice(sliceIdx);
 				});
 			});
-			var runner = window.mocha.run();
+			/*var runner = */window.mocha.run();
 		} else {
 			if (document.location.hostname === "localhost"){
 				window.studio.init(window.defaultProject);

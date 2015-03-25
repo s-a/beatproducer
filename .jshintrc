@@ -13,8 +13,6 @@
     "wsh"           : true,
 
     "jquery"        : true,
-    "angular"        : true,
-    "ender"         : true,
     "prototypejs"   : false,
     "mootools"      : false,
     "dojo"          : false,
@@ -39,7 +37,7 @@
 
 
 
-    "es5"           : true,
+    "es5"           : false,
     "strict"        : false,
     "globalstrict"  : false,
 
@@ -52,7 +50,7 @@
     "curly"         : true,
     "eqeqeq"        : true,
     "eqnull"        : false,
-    "evil"          : false,
+    "evil"          : true,
     "expr"          : false,
     "forin"         : false,
     "immed"         : true,
@@ -65,6 +63,7 @@
     "shadow"        : false,
     "supernew"      : false,
     "undef"         : true,
+    "unused"         : true,
 
 
 
@@ -76,6 +75,6 @@
     "plusplus"      : false,
     "sub"           : false,
     "trailing"      : true,
-    "white"         : false,
+    "white"         : true,
     "indent"        : 2
 }

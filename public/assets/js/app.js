@@ -276,7 +276,7 @@
 
 		Device.prototype.get = function(url, done) {
 			var self = this;
-			var result = $.ajax({
+			$.ajax({
 				url: url,
 				type: "GET",
 				dataType: "binary",
@@ -890,7 +890,7 @@
 	/* ******************** SLICE ************************************************************  */
 
 		var Slice = function(device, tape) {
-			var count = 1;
+			//var count = 1;
 			var g = 1;
 			tape = Ciseaux.concat(tape.split(1000).map(function(tape, i) {
 				var vol = 0.1;
@@ -968,13 +968,13 @@
 		};
 
 		Pattern.prototype.renderSequence = function(done) {
-			var self = this;
+			//var self = this;
 			// 60 000 / 96 BPM = 625 ms
 
 			var bpm = this.device.project.bpm;
 			var numerOfBars = 1;
 			var durationPerStep = ((60000 / bpm ) / 1000) / (numerOfBars*2);
-			var tracks = [];
+			//var tracks = [];
 
 			var tape;
 
@@ -1454,7 +1454,7 @@
 
 
 
-
+/*
 var defaultProject = {
 	bpm : 080,
 	name : "The dawn of a souled hip hop rhythm.",
@@ -1478,7 +1478,7 @@ var defaultProject = {
 		}
 	]
 };
-
+*/
 
 
 
