@@ -848,7 +848,7 @@
 		Studio.prototype.init = function(initialProjectConfig, done) {
 			var self = this;
 			self.reset();
-			var say = new this.Speech().say;
+			//var say = new this.Speech().say;
 
 			if (initialProjectConfig){
 				document.title = initialProjectConfig.name;
