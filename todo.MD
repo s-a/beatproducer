@@ -1,5 +1,6 @@
- - rename  private songs	
- - delete  private songs	
+ - open published songs without login!
+ - copy private songs	
+ - delete private songs	
  - dialog to preview and open samples
  - import song devices only
  - add tags to project configs (project property page) 
@@ -11,8 +12,6 @@
  - add effect scripts to grunt build job
  - full screen waveform
  - full screen pattern editor
- - open published songs without login
- - add social netowork share options
 
  - clean up redundant code
 
