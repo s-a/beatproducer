@@ -1502,8 +1502,8 @@ $("body").on("react-components-ready", function() {
 					cfg = JSON.parse(cfg);
 					window.studio.init(cfg, function(config) {});
 				},
-				error:function(a,b) {
-					window.gui.alert("Could not load song " + lnk.get("song") + ": " + a.responseJSON.message);
+				error:function(response) {
+					window.gui.alert("Could not load song " + lnk.get("song") + ": " + response.responseJSON.message);
 				}
 			})
 		} else {
