@@ -44,7 +44,6 @@ paper-slider::shadow #sliderKnobInner {
 
 .device-loading-indicator{
   height:52px;
-
 }
 
 .device-element-outset{
@@ -77,18 +76,19 @@ paper-slider::shadow #sliderKnobInner {
 }
 
 #gui-loading-progress{
+  padding: 22px;
   background-color: #F2F2F2;
   color: #0D0D0D;
-  display: none;
+
   width: 128px; 
-  height: 88px;
+  height: 128px;
   overflow: hidden;
   margin: auto;
   position: absolute;
   top: 0; left: 0; bottom: 0; right: 0;
   text-align: center;
-  border-radius: 22px;
-
+  border-radius: 64px;
+  box-sizing: border-box;
 }
 
 
