@@ -7,6 +7,13 @@
 [![Coverage Status](http://img.shields.io/coveralls/s-a/beatproducer.svg?style=flat-square)](https://coveralls.io/r/s-a/beatproducer?branch=master)
 [![License](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](http://s-a.mit-license.org/)
 
+***Browser***
+[![Dependency Status](https://gemnasium.com/s-a/beatproducer.svg)](https://gemnasium.com/s-a/beatproducer)
+
+***Node.js***
+[![Dependency Status](https://david-dm.org/s-a/beatproducer.svg)](https://david-dm.org/s-a/beatproducer)
+[![devDependency Status](https://david-dm.org/s-a/beatproducer/dev-status.svg)](https://david-dm.org/s-a/beatproducer#info=devDependencies)
+
 
 ## Work in progress...
 
