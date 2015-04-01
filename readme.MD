@@ -1,17 +1,15 @@
 # Beatproducer Studio (draft)
 [![logo](/src/logo_small.png)](https://s-a.github.io/beatproducer/studio/)  
 
-
+***Code***  
 [![Build Status](http://img.shields.io/travis/s-a/beatproducer.svg?style=flat-square)](https://travis-ci.org/s-a/beatproducer)
 [![Codacy Badge](https://www.codacy.com/project/badge/5d076820556443fcb6f3c48368f33156)](https://www.codacy.com/app/stephanahlf/beatproducer)
 [![Coverage Status](http://img.shields.io/coveralls/s-a/beatproducer.svg?style=flat-square)](https://coveralls.io/r/s-a/beatproducer?branch=master)
-[![License](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](http://s-a.mit-license.org/)
+[![License](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](http://s-a.mit-license.org/) 
 
-***Browser***
-[![Dependency Status](https://gemnasium.com/s-a/beatproducer.svg)](https://gemnasium.com/s-a/beatproducer)
-
-***Node.js***
-[![Dependency Status](https://david-dm.org/s-a/beatproducer.svg)](https://david-dm.org/s-a/beatproducer)
+***Dependencies***  
+Bower: [![Dependency Status](https://gemnasium.com/s-a/beatproducer.svg)](https://gemnasium.com/s-a/beatproducer)
+NPM: [![Dependency Status](https://david-dm.org/s-a/beatproducer.svg)](https://david-dm.org/s-a/beatproducer)
 [![devDependency Status](https://david-dm.org/s-a/beatproducer/dev-status.svg)](https://david-dm.org/s-a/beatproducer#info=devDependencies)
 
 
