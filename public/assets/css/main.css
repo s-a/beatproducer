@@ -137,6 +137,7 @@ paper-slider::shadow #sliderKnobInner {
   border-bottom: 0;
   border-bottom-right-radius: 0;
   background-color: #ccc;
+  border-top: solid 2px #3D3D3D;
 }
 
 
