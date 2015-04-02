@@ -105,7 +105,6 @@
       var markers = null;
       if (this.state.device.markers){
         markers = this.state.device.markers.map(function(marker, s) {
-          debugger;
           return <strong>{s}</strong>;
         }.bind(this));
       }
@@ -216,8 +215,8 @@
 
           var activePatternIndex = 0;
           if (self.state && self.state.connectedDevice ){
-            var pattern = self.state.connectedDevice.patterns[activePatternIndex];
-            if (pattern) {
+            if (self.state.connectedDevice.patterns) {
+              var pattern = self.state.connectedDevice.patterns[activePatternIndex];
               for (var bar = 0; bar < pattern.bars; bar++) {
                 var steps = pattern.sequence.length;
                 for (var step = 0; step < steps ; step++) {
