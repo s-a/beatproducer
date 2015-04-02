@@ -100,7 +100,7 @@
 						device.slices[sliceIdx].play(function() {
 							sliceIdx--;
 							if (sliceIdx === -1){
-								done()
+								done();
 							} else {
 								playSlice(sliceIdx);
 							}

@@ -16,10 +16,10 @@
 
 
 	/* ******************** HELPER FUNCTIONS ************************************************************  */
-		var id = function function_name (argument) {
+		var id = function() {
 			uniqueId++;
 			return uniqueId;
-		}
+		};
 
 		$.ajaxTransport("+binary", function(options, originalOptions, jqXHR){
 				// check for conditions and support for blob / arraybuffer response type
@@ -133,7 +133,7 @@
 			});
 
 			return this;
-		}
+		};
 
 		EffectController.prototype.add = function(fxConfig) {
 			this.effects.push(fxConfig);
@@ -142,19 +142,19 @@
 		EffectController.prototype.Effect = function(device, settings) {
 			this.device = device;
 
-		  	var source = null;
-		  	if (settings.source){
-		  		for (var i = 0; i < this.device.effectController.effects.length; i++) {
-		  			var fx = this.device.effectController.effects[i];
-		  			if (fx.id === settings.source) {// eg main signal
-		  				source = this.device.effectController.computedEffects[i].output; // _comp
-		  				break;
-		  			}
-		  		}
-		  		if (!source){
-		  			throw "Source Effect Device "  + settings.source + " not found";
-		  		}
-		  	}
+			var source = null;
+			if (settings.source){
+				for (var i = 0; i < this.device.effectController.effects.length; i++) {
+					var fx = this.device.effectController.effects[i];
+					if (fx.id === settings.source) {// eg main signal
+						source = this.device.effectController.computedEffects[i].output; // _comp
+						break;
+					}
+				}
+				if (!source){
+					throw "Source Effect Device "  + settings.source + " not found";
+				}
+			}
 
 
 			var ctx = this.device.audioContext;
@@ -201,23 +201,23 @@
 			//  7  this._chored = false;
 			//    this._db = {};
 			 
-								/*  	
-				    var delay = ctx.createDelay();
-				    delay.delayTime.value = 0.5;
+								/*
+					var delay = ctx.createDelay();
+					delay.delayTime.value = 0.5;
 
-				    var feedback = ctx.createGain();
-				    feedback.gain.value = 0.8;
+					var feedback = ctx.createGain();
+					feedback.gain.value = 0.8;
 
-				    var filter = ctx.createBiquadFilter();
-				    filter.frequency.value = 1000;
+					var filter = ctx.createBiquadFilter();
+					filter.frequency.value = 1000;
 
-				    delay.connect(feedback);
-				    feedback.connect(filter);
-				    filter.connect(delay);
+					delay.connect(feedback);
+					feedback.connect(filter);
+					filter.connect(delay);
 
-				    source.connect(delay);
-				    source.connect(ctx.destination);
-				    delay.connect(ctx.destination);
+					source.connect(delay);
+					source.connect(ctx.destination);
+					delay.connect(ctx.destination);
 				*/			
 			//this.destination = source;
 			
@@ -1505,7 +1505,7 @@ $("body").on("react-components-ready", function() {
 				error:function(response) {
 					window.gui.alert("Could not load song " + lnk.get("song") + ": " + response.responseJSON.message);
 				}
-			})
+			});
 		} else {
 			if(window.boomTestSuite){
 				window.boomTestSuite();
@@ -1514,5 +1514,5 @@ $("body").on("react-components-ready", function() {
 			}
 		}
 	});
-
+	
 });
