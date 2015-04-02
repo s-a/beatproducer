@@ -87,6 +87,7 @@
           device.refreshSpectrum();
           device.chopSlices();
           device.project.studio.patternEditor.open(device);
+
         }
     },
     getInitialState: function() {
@@ -101,6 +102,14 @@
       };
     },
     render: function() {
+      var markers = null;
+      if (this.state.device.markers){
+        markers = this.state.device.markers.map(function(marker, s) {
+          debugger;
+          return <strong>{s}</strong>;
+        }.bind(this));
+      }
+       
       return  <div key={this.state.device._id} className="device-element-outset device">
                 <strong onClick={this.handleOnRenameDeviceClick} className="device-name">{this.state.device._id} {this.state.name}</strong> <small className="device-transport-time">{this.state.currentTime}</small>
                 <div>
@@ -112,7 +121,10 @@
                 <a className="device-button device-button-opensample" href="javascript:void(0);" onClick={this.handleOnOpenClick}><img width="32" src="assets/images/ic_folder_open_48px.svg"/></a> 
                 <a className="device-button device-button-pattern-editor" href="javascript:void(0);" onClick={this.handleOnOpenPatternEditorClick}><img width="32" src="assets/images/ic_queue_music_48px.svg"/></a> 
                 <a className="device-button device-button-pattern-editor" href="javascript:void(0);" onClick={this.handleOnDeleteDeviceClick}><img width="32" src="assets/images/ic_delete_48px.svg"/></a> 
-              </div> ;
+                <div>
+                  {markers} 
+                </div>
+              </div>;
     }
   });
 

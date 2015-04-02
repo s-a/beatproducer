@@ -604,6 +604,7 @@
 				var tape = this.tape.slice(start, length);
 				this.slices.push(new Slice(self, tape));
 			}
+			this._el.setState({device: this});
 		};
 
 		Device.prototype.config = function() {
