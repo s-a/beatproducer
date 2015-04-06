@@ -21,6 +21,35 @@
     }
   });
 
+  var Marker = React.createClass({
+    onChange : function(e) {
+      var val = parseFloat(e.target.value);
+      var device = this.props.device;
+      var pos = device.spectrumPosition({seconds:val});
+      var index = parseInt(this.props.index);
+      this.props.marker.seconds = val;
+      device.markers[index] = pos;
+      device.refreshSpectrum();
+      device.chopSlices();
+      device.project.studio.patternEditor.open(device);
+      device.spectrumCursorPosition(pos.x);
+    },
+    onFocus : function(e) {
+      var device = this.props.device;
+      var val = parseFloat(e.target.value);
+      var pos = device.spectrumPosition({seconds:val});
+      device.spectrumCursorPosition(pos.x);
+    },
+    render : function() {
+      var marker = this.props.marker;
+      var val = marker.seconds;
+      var max = this.props.device.audioBuffer.duration;
+      return <div>
+        <input onChange={this.onChange} onFocus={this.onFocus} value={val} type="range" min="0" max={max} /> <input onChange={this.onChange} onFocus={this.onFocus} type="number" min="0" max={max} value={val} /> <span>delete</span>
+      </div>;
+    }
+  });
+
   var Device = React.createClass({
     handleOnDeleteDeviceClick : function() {
       var devices = this.state.device.project._el.state.devices;
@@ -105,7 +134,7 @@
       var markers = null;
       if (this.state.device.markers){
         markers = this.state.device.markers.map(function(marker, s) {
-          return <strong>{s}</strong>;
+          return <Marker key={s} index={s} marker={marker} device={this.state.device} />;
         }.bind(this));
       }
        
